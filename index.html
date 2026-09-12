@@ -1,1 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>English MCQ Practice</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f3f6;
+        }
+
+        .app {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 26px;
+        }
+
+        .info {
+            display: flex;
+            justify-content: space-between;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .quiz-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        #question {
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        .option {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .option.wrong {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        #explanation-btn,
+        #next-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            margin-top: 12px;
+            font-size: 16px;
+        }
+
+        #explanation-btn {
+            background: #e7f1ff;
+        }
+
+        #next-btn {
+            background: #222;
+            color: white;
+        }
+
+        #explanation {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #eef6ff;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <h1>📚 English MCQ Practice</h1>
+
+    <div class="info">
+        <span id="question-number">Question 1/3</span>
+        <span id="score">Score: 0</span>
+    </div>
+
+    <div class="quiz-box">
+
+        <h2 id="question"></h2>
+
+        <div id="options"></div>
+
+        <button id="explanation-btn">
+            ℹ️ Explanation
+        </button>
+
+        <div id="explanation"></div>
+
+        <button id="next-btn">
+            Next Question →
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const questions = [
+
+    {
+        question: "Choose the synonym of 'Abandon'.",
+
+        options: [
+            "Keep",
+            "Leave",
+            "Hold",
+            "Save"
+        ],
+
+        answer: 1,
+
+        explanation:
+        "Abandon means to leave someone or something completely."
+    },
+
+    {
+        question: "Choose the synonym of 'Accurate'.",
+
+        options: [
+            "Wrong",
+            "Exact",
+            "False",
+            "Rough"
+        ],
+
+        answer: 1,
+
+        explanation:
+        "Accurate means correct, exact, or free from mistakes."
+    },
+
+    {
+        question: "Choose the synonym of 'Brave'.",
+
+        options: [
+            "Coward",
+            "Weak",
+            "Courageous",
+            "Afraid"
+        ],
+
+        answer: 2,
+
+        explanation:
+        "Brave means courageous or having the courage to face danger or difficulty."
+    }
+
+];
+
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+
+const questionElement =
+    document.getElementById("question");
+
+const optionsElement =
+    document.getElementById("options");
+
+const questionNumberElement =
+    document.getElementById("question-number");
+
+const scoreElement =
+    document.getElementById("score");
+
+const explanationButton =
+    document.getElementById("explanation-btn");
+
+const explanationElement =
+    document.getElementById("explanation");
+
+const nextButton =
+    document.getElementById("next-btn");
+
+
+function showQuestion() {
+
+    answered = false;
+
+    const q = questions[currentQuestion];
+
+    questionElement.textContent = q.question;
+
+    questionNumberElement.textContent =
+        `Question ${currentQuestion + 1}/${questions.length}`;
+
+    optionsElement.innerHTML = "";
+
+    explanationElement.style.display = "none";
+
+    q.options.forEach((option, index) => {
+
+        const button =
+            document.createElement("button");
+
+        button.textContent =
+            `${String.fromCharCode(65 + index)}) ${option}`;
+
+        button.classList.add("option");
+
+        button.addEventListener("click", function() {
+
+            checkAnswer(index, button);
+
+        });
+
+        optionsElement.appendChild(button);
+
+    });
+
+}
+
+
+function checkAnswer(selectedAnswer, selectedButton) {
+
+    if (answered) return;
+
+    answered = true;
+
+    const correctAnswer =
+        questions[currentQuestion].answer;
+
+
+    if (selectedAnswer === correctAnswer) {
+
+        selectedButton.classList.add("correct");
+
+        score++;
+
+        scoreElement.textContent =
+            `Score: ${score}`;
+
+    }
+
+    else {
+
+        selectedButton.classList.add("wrong");
+
+        const buttons =
+            document.querySelectorAll(".option");
+
+        buttons[correctAnswer]
+            .classList.add("correct");
+
+    }
+
+}
+
+
+explanationButton.addEventListener("click", function() {
+
+    explanationElement.textContent =
+        questions[currentQuestion].explanation;
+
+    if (explanationElement.style.display === "block") {
+
+        explanationElement.style.display = "none";
+
+    }
+
+    else {
+
+        explanationElement.style.display = "block";
+
+    }
+
+});
+
+
+nextButton.addEventListener("click", function() {
+
+    if (currentQuestion < questions.length - 1) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+    }
+
+    else {
+
+        questionElement.textContent =
+            `🎉 Test Completed!`;
+
+        optionsElement.innerHTML = "";
+
+        explanationElement.style.display = "none";
+
+        explanationButton.style.display = "none";
+
+        nextButton.style.display = "none";
+
+        questionNumberElement.textContent =
+            "Finished";
+
+        scoreElement.textContent =
+            `Final Score: ${score}/${questions.length}`;
+
+    }
+
+});
+
+
+showQuestion();
+
+</script>
+
+</body>
+  </html>
