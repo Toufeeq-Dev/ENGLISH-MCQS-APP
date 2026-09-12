@@ -875,42 +875,51 @@ function shuffle(arr) {
 }
 
 function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+    return true;
+  } catch (e) {
+    console.warn("Local storage unavailable:", e);
+    return false;
+  }
 }
 
 function loadData() {
-
   try {
-
     const raw = localStorage.getItem(STORAGE_KEY);
 
-    if (!raw) return false;
+    if (!raw) {
+      return false;
+    }
 
     const parsed = JSON.parse(raw);
 
     DATA = {
-      ...DATA,
-      ...parsed
+      theme: parsed.theme || "light",
+      questions: Array.isArray(parsed.questions)
+        ? parsed.questions
+        : [],
+      quizHistory: Array.isArray(parsed.quizHistory)
+        ? parsed.quizHistory
+        : [],
+      todayQuiz: parsed.todayQuiz || null
     };
-
-    if (!Array.isArray(DATA.questions)) {
-      DATA.questions = [];
-    }
-
-    if (!Array.isArray(DATA.quizHistory)) {
-      DATA.quizHistory = [];
-    }
 
     return true;
 
   } catch (e) {
+    console.warn("Could not load saved data:", e);
 
-    console.error(e);
+    DATA = {
+      theme: "light",
+      questions: [],
+      quizHistory: [],
+      todayQuiz: null
+    };
+
     return false;
-
   }
 }
-
 
 /* =========================================================
    SAMPLE QUESTIONS
