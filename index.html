@@ -3,2861 +3,1121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MCQ Master</title>
+<title>MCQ Master — Daily Practice</title>
 
 <style>
+/* =========================================================
+   MCQ MASTER - COMPLETE SINGLE FILE
+   ========================================================= */
+
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #172033;
+  --muted: #687386;
+  --border: #e4e8ef;
+  --primary: #315efb;
+  --primary-dark: #244bd0;
+  --success: #16834b;
+  --success-bg: #e8f7ef;
+  --danger: #d83a52;
+  --danger-bg: #fdecef;
+  --warning: #b77900;
+  --warning-bg: #fff5d9;
+  --shadow: 0 8px 30px rgba(20, 35, 70, .08);
+  --radius: 16px;
+}
+
+[data-theme="dark"] {
+  --bg: #10141d;
+  --card: #181e29;
+  --text: #f2f5fa;
+  --muted: #9ba6b8;
+  --border: #2b3444;
+  --primary: #6d8cff;
+  --primary-dark: #5575ed;
+  --success: #39c47a;
+  --success-bg: #153827;
+  --danger: #ff647b;
+  --danger-bg: #3a1820;
+  --warning: #e6b343;
+  --warning-bg: #3a2e12;
+  --shadow: 0 8px 30px rgba(0,0,0,.25);
+}
+
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f2f4f7;
-    color: #222;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: .2s;
 }
 
-.container {
-    max-width: 750px;
-    margin: auto;
-    padding: 15px;
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+/* ================= HEADER ================= */
 
 .header {
-    background: #222;
-    color: white;
-    padding: 22px 15px;
-    text-align: center;
-    border-radius: 14px;
-    margin-bottom: 15px;
+  height: 68px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
-.header h1 {
-    margin: 0;
-    font-size: 27px;
+.logo {
+  font-size: 21px;
+  font-weight: 800;
 }
 
-.header p {
-    margin: 7px 0 0;
-    opacity: 0.8;
+.logo span {
+  color: var(--primary);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 12px;
+  font-size: 18px;
+}
+
+/* ================= LAYOUT ================= */
+
+.layout {
+  display: flex;
+  min-height: calc(100vh - 68px);
+}
+
+.sidebar {
+  width: 230px;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 20px 12px;
+  flex-shrink: 0;
+}
+
+.nav-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  padding: 13px 14px;
+  border-radius: 11px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background: rgba(49,94,251,.1);
+  color: var(--primary);
+}
+
+.main {
+  flex: 1;
+  padding: 28px;
+  max-width: 1400px;
+  margin: auto;
+  width: 100%;
+}
+
+/* ================= COMMON ================= */
+
+.page-title {
+  margin: 0 0 6px;
+  font-size: 28px;
+}
+
+.page-subtitle {
+  color: var(--muted);
+  margin: 0 0 24px;
 }
 
 .card {
-    background: white;
-    padding: 20px;
-    border-radius: 14px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
 }
 
-h2 {
-    margin-top: 0;
+.card-pad {
+  padding: 22px;
 }
 
-label {
-    display: block;
-    font-weight: bold;
-    margin-top: 15px;
-    margin-bottom: 7px;
+.grid {
+  display: grid;
+  gap: 18px;
 }
 
-select {
-    width: 100%;
-    padding: 13px;
-    border: 1px solid #ccc;
-    border-radius: 9px;
-    font-size: 16px;
-    background: white;
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.stat {
+  padding: 20px;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 30px;
+  font-weight: 800;
+  margin-top: 8px;
 }
 
 .btn {
-    width: 100%;
-    border: none;
-    padding: 14px;
-    border-radius: 9px;
-    background: #222;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 18px;
+  border: 0;
+  border-radius: 11px;
+  padding: 11px 17px;
+  font-weight: 700;
+  transition: .15s;
 }
 
 .btn:hover {
-    opacity: 0.9;
+  transform: translateY(-1px);
 }
 
-.hidden {
-    display: none;
+.btn-primary {
+  background: var(--primary);
+  color: white;
 }
 
-.info {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 15px;
+.btn-primary:hover {
+  background: var(--primary-dark);
 }
 
-.info-box {
-    flex: 1;
-    background: white;
-    padding: 12px 5px;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
+.btn-secondary {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
 }
 
-.timer {
-    color: #d00000;
+.btn-danger {
+  background: var(--danger);
+  color: white;
 }
 
-.question-box {
-    background: white;
-    padding: 20px;
-    border-radius: 14px;
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-warning {
+  background: var(--warning);
+  color: white;
+}
+
+.btn-small {
+  padding: 7px 11px;
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 11px 12px;
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+}
+
+textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.badge-blue {
+  background: rgba(49,94,251,.12);
+  color: var(--primary);
+}
+
+.badge-green {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.badge-red {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.badge-yellow {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+/* ================= DASHBOARD ================= */
+
+.quick-start {
+  padding: 26px;
+  margin-bottom: 20px;
+}
+
+.quick-start h2 {
+  margin-top: 0;
+}
+
+.quiz-settings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* ================= QUESTION BANK ================= */
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.question-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.question-row {
+  padding: 17px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--card);
+}
+
+.question-row-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.question-text {
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.question-meta {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* ================= IMPORT ================= */
+
+.import-help {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+.import-help pre {
+  white-space: pre-wrap;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 10px 0 0;
+}
+
+.import-result {
+  margin-top: 15px;
+  padding: 13px;
+  border-radius: 10px;
+  display: none;
+}
+
+/* ================= QUIZ ================= */
+
+.quiz-container {
+  max-width: 850px;
+  margin: auto;
+}
+
+.quiz-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.progress-wrap {
+  height: 8px;
+  background: var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary);
+  width: 0%;
+  transition: width .25s;
+}
+
+.question-card {
+  padding: 26px;
 }
 
 .question-number {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 10px;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 12px;
 }
 
-.question {
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 1.5;
-    margin-bottom: 20px;
+.quiz-question {
+  font-size: 21px;
+  line-height: 1.5;
+  font-weight: 800;
+  margin-bottom: 22px;
 }
 
 .option {
-    width: 100%;
-    padding: 14px;
-    margin: 7px 0;
-    border: 2px solid #ddd;
-    border-radius: 9px;
-    background: white;
-    text-align: left;
-    font-size: 16px;
-    cursor: pointer;
+  width: 100%;
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.option:hover {
+  border-color: var(--primary);
+}
+
+.option.selected {
+  border-color: var(--primary);
+  background: rgba(49,94,251,.1);
 }
 
 .option.correct {
-    background: #d9f7d5;
-    border-color: green;
+  border-color: var(--success);
+  background: var(--success-bg);
 }
 
 .option.wrong {
-    background: #ffdada;
-    border-color: red;
+  border-color: var(--danger);
+  background: var(--danger-bg);
 }
 
-.option:disabled {
-    cursor: default;
+.option-letter {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  flex-shrink: 0;
 }
 
-.buttons {
-    display: flex;
-    gap: 8px;
-    margin-top: 15px;
+.answer-input {
+  margin: 10px 0 15px;
 }
 
-.next-btn {
-    flex: 1;
-    border: none;
-    padding: 13px;
-    border-radius: 8px;
-    background: #222;
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
+.feedback {
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 16px;
+  display: none;
 }
 
-.explanation-btn {
-    border: none;
-    padding: 13px;
-    border-radius: 8px;
-    background: #e9ecef;
-    font-size: 15px;
+.feedback.correct {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.feedback.wrong {
+  background: var(--danger-bg);
+  color: var(--danger);
 }
 
 .explanation {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.quiz-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+/* ================= RESULTS ================= */
+
+.result-card {
+  text-align: center;
+  padding: 35px;
+}
+
+.score-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 10px solid var(--primary);
+  display: grid;
+  place-items: center;
+  margin: 15px auto 22px;
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.result-stat {
+  padding: 16px;
+  background: var(--bg);
+  border-radius: 12px;
+}
+
+.result-stat strong {
+  display: block;
+  font-size: 23px;
+}
+
+/* ================= MODAL ================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-box {
+  background: var(--card);
+  color: var(--text);
+  width: min(700px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 18px;
+  padding: 24px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* ================= EMPTY ================= */
+
+.empty {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--muted);
+}
+
+/* ================= MOBILE ================= */
+
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 950px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .quiz-settings {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .header {
+    padding: 0 15px;
+  }
+
+  .sidebar {
     display: none;
-    background: #f1f3f5;
-    padding: 13px;
-    margin-top: 12px;
-    border-radius: 8px;
-    line-height: 1.5;
-}
+  }
 
-.result {
-    text-align: center;
-}
+  .main {
+    padding: 18px 14px 80px;
+  }
 
-.final-score {
-    font-size: 40px;
-    font-weight: bold;
-    margin: 15px 0;
-}
+  .grid-4,
+  .grid-3,
+  .grid-2,
+  .quiz-settings {
+    grid-template-columns: 1fr;
+  }
 
-.back-btn {
-    background: #666;
-}
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 80;
+  }
 
-@media (max-width: 500px) {
-    .question {
-        font-size: 18px;
-    }
+  .mobile-nav button {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    padding: 13px 4px;
+    font-size: 11px;
+  }
 
-    .info-box {
-        font-size: 12px;
-    }
+  .mobile-nav button.active {
+    color: var(--primary);
+  }
+
+  .page-title {
+    font-size: 23px;
+  }
+
+  .question-card {
+    padding: 19px;
+  }
+
+  .quiz-question {
+    font-size: 18px;
+  }
+
+  .result-stats {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-    <div class="header">
-        <h1>📚 MCQ Master</h1>
-        <p>Government Job Test Preparation</p>
+<header class="header">
+  <div class="logo">MCQ <span>Master</span></div>
+
+  <div class="header-right">
+    <button class="icon-btn" id="themeBtn" title="Toggle theme">🌙</button>
+  </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+  <button class="nav-item active" data-page="dashboard">
+    🏠 Dashboard
+  </button>
+
+  <button class="nav-item" data-page="quiz">
+    🎯 Daily Quiz
+  </button>
+
+  <button class="nav-item" data-page="bank">
+    📚 Question Bank
+  </button>
+
+  <button class="nav-item" data-page="import">
+    📥 Bulk Import
+  </button>
+
+  <button class="nav-item" data-page="manage">
+    ⚙️ Manage Data
+  </button>
+
+</aside>
+
+<main class="main" id="app"></main>
+
+</div>
+
+<nav class="mobile-nav">
+  <button data-page="dashboard">🏠<br>Home</button>
+  <button data-page="quiz">🎯<br>Quiz</button>
+  <button data-page="bank">📚<br>Bank</button>
+  <button data-page="import">📥<br>Import</button>
+</nav>
+
+</div>
+
+
+<!-- =========================================================
+     QUESTION MODAL
+========================================================= -->
+
+<div class="modal" id="questionModal">
+
+<div class="modal-box">
+
+  <div class="modal-header">
+    <h2 id="modalTitle">Add Question</h2>
+    <button class="icon-btn" onclick="closeModal()">✕</button>
+  </div>
+
+  <input type="hidden" id="editId">
+
+  <div class="form-group">
+    <label>Question</label>
+    <textarea id="qText" placeholder="Enter your question..."></textarea>
+  </div>
+
+  <div class="grid grid-2">
+
+    <div class="form-group">
+      <label>Subject</label>
+      <input id="qSubject" placeholder="e.g. Pakistan Studies">
     </div>
 
-
-    <!-- =========================
-         HOME / SELECTION SCREEN
-         ========================= -->
-
-    <div id="home">
-
-        <div class="card">
-
-            <h2>🎯 Select Your Test</h2>
-
-            <label>Subject</label>
-
-            <select id="subjectSelect" onchange="loadTopics()">
-                <option value="">-- Select Subject --</option>
-                <option value="English">📘 English</option>
-                <option value="General Knowledge">📗 General Knowledge</option>
-                <option value="Pak Study">📕 Pak Study</option>
-                <option value="Islamiat">📙 Islamiat</option>
-                <option value="General Science">🔬 General Science</option>
-                <option value="Computer">💻 Computer</option>
-            </select>
-
-
-            <label>Topic</label>
-
-            <select id="topicSelect">
-                <option value="">-- Select Topic --</option>
-            </select>
-
-
-            <label>Number of Questions</label>
-
-            <select id="questionCount">
-                <option value="30">30 Questions</option>
-                <option value="60">60 Questions</option>
-                <option value="100" selected>100 Questions</option>
-            </select>
-
-
-            <label>Time</label>
-
-            <select id="timeLimit">
-                <option value="20">20 Minutes</option>
-                <option value="40">40 Minutes</option>
-                <option value="60" selected>60 Minutes</option>
-            </select>
-
-
-            <button class="btn" onclick="startQuiz()">
-                🚀 Start Quiz
-            </button>
-
-        </div>
-
+    <div class="form-group">
+      <label>Difficulty</label>
+      <select id="qDifficulty">
+        <option>Easy</option>
+        <option>Medium</option>
+        <option>Hard</option>
+      </select>
     </div>
 
+  </div>
 
-    <!-- =========================
-         QUIZ SCREEN
-         ========================= -->
+  <div class="form-group">
+    <label>Options</label>
 
-    <div id="quiz" class="hidden">
+    <input id="optA" placeholder="Option A" style="margin-bottom:8px">
+    <input id="optB" placeholder="Option B" style="margin-bottom:8px">
+    <input id="optC" placeholder="Option C" style="margin-bottom:8px">
+    <input id="optD" placeholder="Option D">
+  </div>
 
-        <div class="info">
+  <div class="form-group">
+    <label>Correct Answer</label>
+    <input id="qAnswer" placeholder="For MCQ: A/B/C/D or answer text">
+  </div>
 
-            <div class="info-box">
-                Question
-                <br>
-                <span id="progress">1/10</span>
-            </div>
+  <div class="form-group">
+    <label>Explanation (optional)</label>
+    <textarea id="qExplanation" placeholder="Short explanation..."></textarea>
+  </div>
 
-            <div class="info-box">
-                Score
-                <br>
-                <span id="score">0</span>
-            </div>
+  <div class="actions">
+    <button class="btn btn-primary" onclick="saveQuestionFromModal()">
+      Save Question
+    </button>
 
-            <div class="info-box timer">
-                Time
-                <br>
-                <span id="timer">60:00</span>
-            </div>
+    <button class="btn btn-secondary" onclick="closeModal()">
+      Cancel
+    </button>
+  </div>
 
-        </div>
-
-
-        <div class="question-box">
-
-            <div class="question-number" id="questionNumber">
-                Question 1
-            </div>
-
-            <div class="question" id="question">
-                Question
-            </div>
-
-            <div id="options"></div>
-
-
-            <div class="buttons">
-
-                <button
-                    class="explanation-btn"
-                    onclick="toggleExplanation()">
-                    ℹ Explanation
-                </button>
-
-                <button
-                    class="next-btn"
-                    onclick="nextQuestion()">
-                    Next →
-                </button>
-
-            </div>
-
-
-            <div
-                class="explanation"
-                id="explanation">
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================
-         RESULT SCREEN
-         ========================= -->
-
-    <div id="result" class="card result hidden">
-
-        <h2>🎉 Test Completed!</h2>
-
-        <div
-            class="final-score"
-            id="finalScore">
-            0 / 0
-        </div>
-
-        <p id="percentage">
-            Percentage: 0%
-        </p>
-
-        <p id="resultMessage"></p>
-
-        <button
-            class="btn"
-            onclick="location.reload()">
-            🔄 Retry
-        </button>
-
-        <button
-            class="btn back-btn"
-            onclick="goHome()">
-            🏠 Home
-        </button>
-
-    </div>
-
+</div>
 </div>
 
 
 <script>
 
-/* ============================================================
-   SUBJECTS + TOPICS
-   ============================================================ */
+/* =========================================================
+   DATA
+========================================================= */
 
-const topics = {
+const STORAGE_KEY = "mcq_master_v1";
 
-    "English": [
-        "Synonyms",
-        "Antonyms",
-        "Prepositions",
-        "Articles",
-        "Grammar",
-        "Plurals",
-        "Active/Passive Voice",
-        "Direct/Indirect Speech",
-        "Spellings",
-        "One Word Substitution",
-        "Idioms"
-    ],
-
-    "General Knowledge": [
-        "Pakistan",
-        "World",
-        "Geography",
-        "History",
-        "Organizations",
-        "Current Affairs"
-    ],
-
-    "Pak Study": [
-        "Pakistan Movement",
-        "History of Pakistan",
-        "Constitution",
-        "Important Personalities",
-        "Geography of Pakistan"
-    ],
-
-    "Islamiat": [
-        "Quran",
-        "Hadith",
-        "Seerat-un-Nabi",
-        "Islamic History",
-        "Islamic Battles",
-        "Pillars of Islam"
-    ],
-
-    "General Science": [
-        "Biology",
-        "Physics",
-        "Chemistry",
-        "Everyday Science",
-        "Human Body"
-    ],
-
-    "Computer": [
-        "Computer Fundamentals",
-        "Hardware",
-        "Software",
-        "MS Office",
-        "Internet",
-        "Operating System"
-    ]
-
+let DATA = {
+  theme: "light",
+  questions: [],
+  quizHistory: [],
+  todayQuiz: null
 };
 
 
-/* ============================================================
-   MCQs
-   ============================================================
-
-   IMPORTANT:
-
-   Future mein naye MCQs YAHAN add honge.
-
-   Har MCQ mein:
-   subject
-   topic
-   question
-   options
-   answer
-   explanation
-
-   answer:
-   0 = first option
-   1 = second option
-   2 = third option
-   3 = fourth option
-
-   ============================================================ */
-
-const questions = [
-
-    /* ---------- ENGLISH / SYNONYMS ---------- */
-
-{
-        const questions = [
-
-    // =========================
-    // ENGLISH — SYNONYMS
-    // =========================
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Abandon'.",
-        options: ["Keep", "Leave", "Hold", "Save"],
-        answer: 1,
-        explanation: "Abandon means to leave completely."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Accurate'.",
-        options: ["Wrong", "Exact", "False", "Rough"],
-        answer: 1,
-        explanation: "Accurate means correct or exact."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Brave'.",
-        options: ["Coward", "Weak", "Courageous", "Afraid"],
-        answer: 2,
-        explanation: "Brave means courageous or fearless."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Brief'.",
-        options: ["Short", "Long", "Wide", "Large"],
-        answer: 0,
-        explanation: "Brief means short in duration or length."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Calm'.",
-        options: ["Angry", "Peaceful", "Noisy", "Violent"],
-        answer: 1,
-        explanation: "Calm means peaceful and free from disturbance."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Cease'.",
-        options: ["Begin", "Stop", "Continue", "Start"],
-        answer: 1,
-        explanation: "Cease means to stop."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Difficult'.",
-        options: ["Easy", "Simple", "Hard", "Soft"],
-        answer: 2,
-        explanation: "Difficult means hard or not easy."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Famous'.",
-        options: ["Unknown", "Renowned", "Hidden", "Ordinary"],
-        answer: 1,
-        explanation: "Famous means well-known or renowned."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Honest'.",
-        options: ["Truthful", "Clever", "Dishonest", "Cruel"],
-        answer: 0,
-        explanation: "Honest means truthful and sincere."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Rapid'.",
-        options: ["Slow", "Quick", "Weak", "Late"],
-        answer: 1,
-        explanation: "Rapid means very quick or fast."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Huge'.",
-        options: ["Tiny", "Small", "Enormous", "Narrow"],
-        answer: 2,
-        explanation: "Huge means extremely large or enormous."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Intelligent'.",
-        options: ["Foolish", "Clever", "Lazy", "Weak"],
-        answer: 1,
-        explanation: "Intelligent means clever or having good understanding."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Purchase'.",
-        options: ["Sell", "Buy", "Borrow", "Give"],
-        answer: 1,
-        explanation: "Purchase means to buy something."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Reply'.",
-        options: ["Ask", "Answer", "Question", "Ignore"],
-        answer: 1,
-        explanation: "Reply means to answer or respond."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Vacant'.",
-        options: ["Empty", "Full", "Busy", "Occupied"],
-        answer: 0,
-        explanation: "Vacant means empty or unoccupied."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Ancient'.",
-        options: ["Modern", "New", "Old", "Recent"],
-        answer: 2,
-        explanation: "Ancient means very old."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Assist'.",
-        options: ["Help", "Hurt", "Stop", "Refuse"],
-        answer: 0,
-        explanation: "Assist means to help."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Begin'.",
-        options: ["End", "Start", "Finish", "Close"],
-        answer: 1,
-        explanation: "Begin means to start."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Diligent'.",
-        options: ["Lazy", "Hardworking", "Careless", "Weak"],
-        answer: 1,
-        explanation: "Diligent means hardworking and careful."
-    },
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-        question: "Choose the synonym of 'Essential'.",
-        options: ["Unnecessary", "Necessary", "Optional", "Useless"],
-        answer: 1,
-        explanation: "Essential means necessary or very important."
-    },
-
-
-    // =========================
-    // ENGLISH — ANTONYMS
-    // =========================
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Accept'.",
-        options: ["Receive", "Reject", "Agree", "Take"],
-        answer: 1,
-        explanation: "Reject is the opposite of accept."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Ancient'.",
-        options: ["Old", "Historic", "Modern", "Former"],
-        answer: 2,
-        explanation: "Modern is the opposite of ancient."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Brave'.",
-        options: ["Bold", "Strong", "Cowardly", "Fearless"],
-        answer: 2,
-        explanation: "Cowardly is the opposite of brave."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Expand'.",
-        options: ["Increase", "Extend", "Contract", "Enlarge"],
-        answer: 2,
-        explanation: "Contract means to become smaller or reduce in size."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Victory'.",
-        options: ["Success", "Defeat", "Triumph", "Win"],
-        answer: 1,
-        explanation: "Defeat is the opposite of victory."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Permanent'.",
-        options: ["Fixed", "Temporary", "Stable", "Lasting"],
-        answer: 1,
-        explanation: "Temporary is the opposite of permanent."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Generous'.",
-        options: ["Kind", "Helpful", "Stingy", "Noble"],
-        answer: 2,
-        explanation: "Stingy means unwilling to give or spend, opposite to generous."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Honest'.",
-        options: ["Truthful", "Sincere", "Dishonest", "Loyal"],
-        answer: 2,
-        explanation: "Dishonest is the opposite of honest."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Include'.",
-        options: ["Add", "Contain", "Exclude", "Join"],
-        answer: 2,
-        explanation: "Exclude means to leave out, opposite to include."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Maximum'.",
-        options: ["Highest", "Minimum", "Greatest", "Largest"],
-        answer: 1,
-        explanation: "Minimum is the opposite of maximum."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Optimistic'.",
-        options: ["Hopeful", "Positive", "Pessimistic", "Confident"],
-        answer: 2,
-        explanation: "Pessimistic is the opposite of optimistic."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Polite'.",
-        options: ["Gentle", "Rude", "Kind", "Respectful"],
-        answer: 1,
-        explanation: "Rude is the opposite of polite."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Scarce'.",
-        options: ["Rare", "Limited", "Abundant", "Short"],
-        answer: 2,
-        explanation: "Abundant means plentiful, opposite to scarce."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Simple'.",
-        options: ["Easy", "Plain", "Complex", "Clear"],
-        answer: 2,
-        explanation: "Complex is the opposite of simple."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Strong'.",
-        options: ["Powerful", "Weak", "Firm", "Hard"],
-        answer: 1,
-        explanation: "Weak is the opposite of strong."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Temporary'.",
-        options: ["Short", "Brief", "Permanent", "Limited"],
-        answer: 2,
-        explanation: "Permanent is the opposite of temporary."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Visible'.",
-        options: ["Clear", "Seen", "Invisible", "Bright"],
-        answer: 2,
-        explanation: "Invisible means unable to be seen."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Wisdom'.",
-        options: ["Knowledge", "Intelligence", "Foolishness", "Understanding"],
-        answer: 2,
-        explanation: "Foolishness is the opposite of wisdom."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Early'.",
-        options: ["Soon", "Prompt", "Late", "Quick"],
-        answer: 2,
-        explanation: "Late is the opposite of early."
-    },
-
-    {
-        subject: "English",
-        topic: "Antonyms",
-        question: "Choose the antonym of 'Major'.",
-        options: ["Important", "Minor", "Great", "Main"],
-        answer: 1,
-        explanation: "Minor is the opposite of major."
-    },
-
-
-    // =========================
-    // ENGLISH — PREPOSITIONS
-    // =========================
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "He is good ___ English.",
-        options: ["in", "at", "on", "for"],
-        answer: 1,
-        explanation: "The correct expression is 'good at English'."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "She is interested ___ music.",
-        options: ["on", "at", "in", "for"],
-        answer: 2,
-        explanation: "We say 'interested in' something."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "He depends ___ his parents.",
-        options: ["at", "on", "in", "for"],
-        answer: 1,
-        explanation: "The correct expression is 'depends on'."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "I am proud ___ my country.",
-        options: ["of", "at", "on", "in"],
-        answer: 0,
-        explanation: "The correct expression is 'proud of'."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "He is afraid ___ dogs.",
-        options: ["from", "of", "at", "on"],
-        answer: 1,
-        explanation: "The correct expression is 'afraid of'."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "The book is ___ the table.",
-        options: ["in", "on", "at", "by"],
-        answer: 1,
-        explanation: "We use 'on' for something resting on a surface."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "He arrived ___ Karachi yesterday.",
-        options: ["at", "on", "in", "by"],
-        answer: 2,
-        explanation: "We generally use 'in' with cities and countries."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "The train arrived ___ the station.",
-        options: ["in", "at", "on", "by"],
-        answer: 1,
-        explanation: "We say 'arrived at the station'."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "He has been absent ___ Monday.",
-        options: ["for", "since", "from", "by"],
-        answer: 1,
-        explanation: "'Since' is used with a specific starting point in time."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "I have lived here ___ five years.",
-        options: ["since", "from", "for", "at"],
-        answer: 2,
-        explanation: "'For' is used with a period of time."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "He goes to school ___ foot.",
-        options: ["by", "on", "with", "in"],
-        answer: 1,
-        explanation: "The correct expression is 'on foot'."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "She came ___ bus.",
-        options: ["on", "in", "by", "with"],
-        answer: 2,
-        explanation: "We say 'by bus' when referring to the means of transport."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "He was born ___ 2007.",
-        options: ["at", "on", "in", "by"],
-        answer: 2,
-        explanation: "We use 'in' with years."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "The meeting starts ___ 9 o'clock.",
-        options: ["in", "on", "at", "by"],
-        answer: 2,
-        explanation: "We use 'at' with a specific clock time."
-    },
-
-    {
-        subject: "English",
-        topic: "Prepositions",
-        question: "He died ___ cancer.",
-        options: ["from", "of", "by", "with"],
-        answer: 1,
-        explanation: "'Died of cancer' is the standard expression."
-    },
-
-
-    // =========================
-    // ENGLISH — ARTICLES
-    // =========================
-
-    {
-        subject: "English",
-        topic: "Articles",
-        question: "He is ___ honest man.",
-        options: ["a", "an", "the", "no article"],
-        answer: 1,
-        explanation: "Use 'an' before a vowel sound: an honest man."
-    },
-
-    {
-        subject: "English",
-        topic: "Articles",
-        question: "She bought ___ umbrella.",
-        options: ["a", "an", "the", "no article"],
-        answer: 1,
-        explanation: "Umbrella begins with a vowel sound, so 'an' is used."
-    },
-
-    {
-        subject: "English",
-        topic: "Articles",
-        question: "I saw ___ elephant in the zoo.",
-        options: ["a", "an", "the", "no article"],
-        answer: 1,
-        explanation: "Elephant begins with a vowel sound, so 'an' is used."
-    },
-
-    {
-        subject: "English",
-        topic: "Articles",
-        question: "He is ___ university student.",
-        options: ["an", "a", "the", "no article"],
-        answer: 1,
-        explanation: "University begins with a /yuː/ sound, so 'a' is used."
-    },
-
-    {
-        subject: "English",
-        topic: "Articles",
-        question: "___ sun rises in the east.",
-        options: ["A", "An", "The", "No article"],
-        answer: 2,
-        explanation: "We use 'the' for unique objects such as the Sun."
-    },
-
-    {
-        subject: "English",
-        topic: "Articles",
-        question: "___ Quran is a holy book.",
-        options: ["A", "An", "The", "No article"],
-        answer: 2,
-        explanation: "'The' is used before the name of this specific holy book."
-    },
-
-    {
-        subject: "English",
-        topic: "Articles",
-        question: "I saw ___ boy in the park.",
-        options: ["a", "an", "the", "no article"],
-        answer: 0,
-        explanation: "A singular countable noun mentioned generally takes 'a'."
-    },
-
-    {
-        subject: "English",
-        topic: "Articles",
-        question: "He is ___ best player in the team.",
-        options: ["a", "an", "the", "no article"],
-        answer: 2,
-        explanation: "Superlative forms such as 'best' normally take 'the'."
-    },
-
-    {
-        subject: "English",
-        topic: "Articles",
-        question: "She wants to become ___ engineer.",
-        options: ["a", "an", "the", "no article"],
-        answer: 1,
-        explanation: "Engineer begins with a vowel sound, so 'an' is used."
-    },
-
-    {
-        subject: "English",
-        topic: "Articles",
-        question: "___ Earth moves around the Sun.",
-        options: ["A", "An", "The", "No article"],
-        answer: 2,
-        explanation: "We use 'the' with unique objects such as the Earth."
-    },
-
-
-    // =========================
-    // ENGLISH — GRAMMAR
-    // =========================
-
-    {
-        subject: "English",
-        topic: "Grammar",
-        question: "Choose the correct sentence.",
-        options: [
-            "He go to school.",
-            "He goes to school.",
-            "He going to school.",
-            "He gone to school."
-        ],
-        answer: 1,
-        explanation: "With 'he' in the simple present, the verb takes -s: goes."
-    },
-
-    {
-        subject: "English",
-        topic: "Grammar",
-        question: "Choose the correct sentence.",
-        options: [
-            "She don't like tea.",
-            "She doesn't likes tea.",
-            "She doesn't like tea.",
-            "She not like tea."
-        ],
-        answer: 2,
-        explanation: "After 'doesn't', use the base form 'like'."
-    },
-
-    {
-        subject: "English",
-        topic: "Grammar",
-        question: "Choose the correct sentence.",
-        options: [
-            "I am going to school.",
-            "I is going to school.",
-            "I are going to school.",
-            "I be going to school."
-        ],
-        answer: 0,
-        explanation: "The correct form with 'I' is 'I am'."
-    },
-
-    {
-        subject: "English",
-        topic: "Grammar",
-        question: "Choose the correct sentence.",
-        options: [
-            "They was happy.",
-            "They were happy.",
-            "They is happy.",
-            "They be happy."
-        ],
-        answer: 1,
-        explanation: "'They' takes 'were' in the past tense."
-    },
-
-    {
-        subject: "English",
-        topic: "Grammar",
-        question: "Choose the correct sentence.",
-        options: [
-            "He have a car.",
-            "He has a car.",
-            "He having a car.",
-            "He haves a car."
-        ],
-        answer: 1,
-        explanation: "With 'he', the correct present form is 'has'."
-    },
-
-
-    // =========================
-    // ENGLISH — PLURALS
-    // =========================
-
-    {
-        subject: "English",
-        topic: "Plurals",
-        question: "Choose the correct plural of 'Child'.",
-        options: ["Childs", "Childes", "Children", "Childrens"],
-        answer: 2,
-        explanation: "The irregular plural of child is children."
-    },
-
-    {
-        subject: "English",
-        topic: "Plurals",
-        question: "Choose the correct plural of 'Man'.",
-        options: ["Mans", "Men", "Mens", "Manes"],
-        answer: 1,
-        explanation: "The irregular plural of man is men."
-    },
-
-    {
-        subject: "English",
-        topic: "Plurals",
-        question: "Choose the correct plural of 'Mouse'.",
-        options: ["Mouses", "Mouse", "Mice", "Meese"],
-        answer: 2,
-        explanation: "The irregular plural of mouse is mice."
-    },
-
-    {
-        subject: "English",
-        topic: "Plurals",
-        question: "Choose the correct plural of 'Foot'.",
-        options: ["Foots", "Feets", "Feet", "Footes"],
-        answer: 2,
-        explanation: "The irregular plural of foot is feet."
-    },
-
-    {
-        subject: "English",
-        topic: "Plurals",
-        question: "Choose the correct plural of 'Tooth'.",
-        options: ["Tooths", "Teeth", "Teets", "Toothes"],
-        answer: 1,
-        explanation: "The irregular plural of tooth is teeth."
-    },
-
-
-    // =========================
-    // ENGLISH — ACTIVE/PASSIVE VOICE
-    // =========================
-
-    {
-        subject: "English",
-        topic: "Active/Passive Voice",
-        question: "Change into passive voice: 'Ali writes a letter.'",
-        options: [
-            "A letter is written by Ali.",
-            "A letter was written by Ali.",
-            "A letter has written by Ali.",
-            "A letter wrote by Ali."
-        ],
-        answer: 0,
-        explanation: "Simple present passive uses is/am/are + past participle."
-    },
-
-    {
-        subject: "English",
-        topic: "Active/Passive Voice",
-        question: "Change into passive voice: 'He opened the door.'",
-        options: [
-            "The door is opened by him.",
-            "The door was opened by him.",
-            "The door has opened by him.",
-            "The door opened him."
-        ],
-        answer: 1,
-        explanation: "Simple past passive uses was/were + past participle."
-    },
-
-    {
-        subject: "English",
-        topic: "Active/Passive Voice",
-        question: "Change into passive voice: 'They play cricket.'",
-        options: [
-            "Cricket was played by them.",
-            "Cricket is played by them.",
-            "Cricket has played by them.",
-            "Cricket played by them."
-        ],
-        answer: 1,
-        explanation: "The sentence is in simple present, so passive uses 'is played'."
-    },
-
-    {
-        subject: "English",
-        topic: "Active/Passive Voice",
-        question: "Change into passive voice: 'She cooked the food.'",
-        options: [
-            "The food is cooked by her.",
-            "The food was cooked by her.",
-            "The food has cooked by her.",
-            "The food cooks by her."
-        ],
-        answer: 1,
-        explanation: "Simple past passive uses 'was cooked'."
-    },
-
-    {
-        subject: "English",
-        topic: "Active/Passive Voice",
-        question: "Change into passive voice: 'The teacher teaches English.'",
-        options: [
-            "English was taught by the teacher.",
-            "English is taught by the teacher.",
-            "English has taught by the teacher.",
-            "English taught the teacher."
-        ],
-        answer: 1,
-        explanation: "Simple present passive uses 'is taught'."
-    },
-
-
-    // =========================
-    // ENGLISH — DIRECT/INDIRECT SPEECH
-    // =========================
-
-    {
-        subject: "English",
-        topic: "Direct/Indirect Speech",
-        question: "Change into indirect speech: He said, 'I am tired.'",
-        options: [
-            "He said that I am tired.",
-            "He said that he was tired.",
-            "He says that he is tired.",
-            "He said he is tired."
-        ],
-        answer: 1,
-        explanation: "In reported speech, 'I' changes to 'he' and 'am' changes to 'was'."
-    },
-
-    {
-        subject: "English",
-        topic: "Direct/Indirect Speech",
-        question: "Change into indirect speech: Ali said, 'I am busy.'",
-        options: [
-            "Ali said that I was busy.",
-            "Ali said that he was busy.",
-            "Ali says that he is busy.",
-            "Ali said that he is busy."
-        ],
-        answer: 1,
-        explanation: "'I am' changes to 'he was' in reported speech."
-    },
-
-    {
-        subject: "English",
-        topic: "Direct/Indirect Speech",
-        question: "Change into indirect speech: He said, 'I have finished my work.'",
-        options: [
-            "He said that he had finished his work.",
-            "He said that I have finished my work.",
-            "He says that he finished his work.",
-            "He said he has finished my work."
-        ],
-        answer: 0,
-        explanation: "Present perfect changes to past perfect in normal reported speech."
-    },
-
-    {
-        subject: "English",
-        topic: "Direct/Indirect Speech",
-        question: "Change into indirect speech: She said, 'I will go tomorrow.'",
-        options: [
-            "She said that she would go the next day.",
-            "She said that I would go tomorrow.",
-            "She says that she will go tomorrow.",
-            "She said she will go yesterday."
-        ],
-        answer: 0,
-        explanation: "'Will' changes to 'would' and 'tomorrow' changes to 'the next day'."
-    },
-
-    {
-        subject: "English",
-        topic: "Direct/Indirect Speech",
-        question: "Change into indirect speech: He said, 'Do you know me?'",
-        options: [
-            "He asked if I knew him.",
-            "He said if I know him.",
-            "He asked do I know him.",
-            "He says that I knew him."
-        ],
-        answer: 0,
-        explanation: "A yes/no question is reported using 'asked if/whether'."
-    },
-
-
-    // =========================
-    // ENGLISH — SPELLINGS
-    // =========================
-
-    {
-        subject: "English",
-        topic: "Spellings",
-        question: "Choose the correctly spelled word.",
-        options: ["Recieve", "Receive", "Receeve", "Receve"],
-        answer: 1,
-        explanation: "The correct spelling is 'Receive'."
-    },
-
-    {
-        subject: "English",
-        topic: "Spellings",
-        question: "Choose the correctly spelled word.",
-        options: ["Separate", "Seperate", "Separete", "Seprate"],
-        answer: 0,
-        explanation: "The correct spelling is 'Separate'."
-    },
-
-    {
-        subject: "English",
-        topic: "Spellings",
-        question: "Choose the correctly spelled word.",
-        options: ["Necessary", "Neccessary", "Necesary", "Necessery"],
-        answer: 0,
-        explanation: "The correct spelling is 'Necessary'."
-    },
-
-    {
-        subject: "English",
-        topic: "Spellings",
-        question: "Choose the correctly spelled word.",
-        options: ["Government", "Goverment", "Governmant", "Goverenment"],
-        answer: 0,
-        explanation: "The correct spelling is 'Government'."
-    },
-
-    {
-        subject: "English",
-        topic: "Spellings",
-        question: "Choose the correctly spelled word.",
-        options: ["Knowledge", "Knowlege", "Knolwedge", "Knowladge"],
-        answer: 0,
-        explanation: "The correct spelling is 'Knowledge'."
-    },
-
-
-    // =========================
-    // ENGLISH — ONE WORD SUBSTITUTION
-    // =========================
-
-    {
-        subject: "English",
-        topic: "One Word Substitution",
-        question: "One who cannot read or write is called:",
-        options: ["Literate", "Illiterate", "Scholar", "Graduate"],
-        answer: 1,
-        explanation: "An illiterate person cannot read or write."
-    },
-
-    {
-        subject: "English",
-        topic: "One Word Substitution",
-        question: "One who loves mankind is called:",
-        options: ["Philanthropist", "Misogynist", "Criminal", "Atheist"],
-        answer: 0,
-        explanation: "A philanthropist is a person who promotes the welfare of others."
-    },
-
-    {
-        subject: "English",
-        topic: "One Word Substitution",
-        question: "A place where books are kept is called:",
-        options: ["Laboratory", "Library", "Museum", "Hospital"],
-        answer: 1,
-        explanation: "A library is a place where books are kept and used."
-    },
-
-    {
-        subject: "English",
-        topic: "One Word Substitution",
-        question: "A person who writes poems is called:",
-        options: ["Poet", "Author", "Editor", "Novelist"],
-        answer: 0,
-        explanation: "A poet writes poems."
-    },
-
-    {
-        subject: "English",
-        topic: "One Word Substitution",
-        question: "A person who treats sick people is called:",
-        options: ["Engineer", "Doctor", "Lawyer", "Teacher"],
-        answer: 1,
-        explanation: "A doctor treats sick people."
-    },
-
-
-    // =========================
-    // ENGLISH — IDIOMS
-    // =========================
-
-    {
-        subject: "English",
-        topic: "Idioms",
-        question: "'Once in a blue moon' means:",
-        options: [
-            "Very often",
-            "Very rarely",
-            "Every day",
-            "Immediately"
-        ],
-        answer: 1,
-        explanation: "The idiom means something that happens very rarely."
-    },
-
-    {
-        subject: "English",
-        topic: "Idioms",
-        question: "'A piece of cake' means:",
-        options: [
-            "Very difficult",
-            "Very expensive",
-            "Very easy",
-            "Very large"
-        ],
-        answer: 2,
-        explanation: "The idiom means something that is very easy to do."
-    },
-
-    {
-        subject: "English",
-        topic: "Idioms",
-        question: "'Break the ice' means:",
-        options: [
-            "To start a conversation",
-            "To break something",
-            "To become angry",
-            "To stop working"
-        ],
-        answer: 0,
-        explanation: "Break the ice means to start a friendly conversation or make people feel comfortable."
-    },
-
-    {
-        subject: "English",
-        topic: "Idioms",
-        question: "'Hit the nail on the head' means:",
-        options: [
-            "To make a mistake",
-            "To say exactly the right thing",
-            "To work slowly",
-            "To become angry"
-        ],
-        answer: 1,
-        explanation: "It means to describe or identify something exactly."
-    },
-
-    {
-        subject: "English",
-        topic: "Idioms",
-        question: "'In hot water' means:",
-        options: [
-            "In comfort",
-            "In trouble",
-            "In happiness",
-            "In danger of rain"
-        ],
-        answer: 1,
-        explanation: "The idiom means to be in trouble or difficulty."
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+function escapeHTML(str) {
+  return String(str ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function todayKey() {
+  const d = new Date();
+
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
+}
+
+function normalizeAnswer(answer) {
+  return String(answer ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/^[a-d][\)\.\-:\s]+/i, "")
+    .replace(/\s+/g, " ");
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+
+  return a;
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+}
+
+function loadData() {
+
+  try {
+
+    const raw = localStorage.getItem(STORAGE_KEY);
+
+    if (!raw) return false;
+
+    const parsed = JSON.parse(raw);
+
+    DATA = {
+      ...DATA,
+      ...parsed
+    };
+
+    if (!Array.isArray(DATA.questions)) {
+      DATA.questions = [];
     }
 
-];
-    },
-
-
-    {
-        subject: "English",
-        topic: "Synonyms",
-
-        question: "Synonym of 'Brave' is:",
-
-        options: [
-            "Coward",
-            "Weak",
-            "Courageous",
-            "Afraid"
-        ],
-
-        answer: 2,
-
-        explanation:
-        "Brave means courageous."
-
-    
-
-  // ==================== MATHS ====================
-
-  // Basic Arithmetic
-  {
-    subject: "Maths",
-    topic: "Basic Arithmetic",
-    question: "What is 25 + 35?",
-    options: ["50", "60", "65", "70"],
-    answer: 1,
-    explanation: "25 + 35 = 60."
-  },
-  {
-    subject: "Maths",
-    topic: "Basic Arithmetic",
-    question: "What is 100 - 45?",
-    options: ["45", "50", "55", "65"],
-    answer: 2,
-    explanation: "100 - 45 = 55."
-  },
-  {
-    subject: "Maths",
-    topic: "Basic Arithmetic",
-    question: "What is 12 × 8?",
-    options: ["86", "96", "108", "116"],
-    answer: 1,
-    explanation: "12 × 8 = 96."
-  },
-  {
-    subject: "Maths",
-    topic: "Basic Arithmetic",
-    question: "What is 144 ÷ 12?",
-    options: ["10", "11", "12", "14"],
-    answer: 2,
-    explanation: "144 ÷ 12 = 12."
-  },
-  {
-    subject: "Maths",
-    topic: "Basic Arithmetic",
-    question: "What is 15 + 27?",
-    options: ["40", "42", "44", "45"],
-    answer: 1,
-    explanation: "15 + 27 = 42."
-  },
-  {
-    subject: "Maths",
-    topic: "Basic Arithmetic",
-    question: "What is 90 - 37?",
-    options: ["43", "53", "57", "63"],
-    answer: 1,
-    explanation: "90 - 37 = 53."
-  },
-  {
-    subject: "Maths",
-    topic: "Basic Arithmetic",
-    question: "What is 9 × 7?",
-    options: ["56", "63", "72", "81"],
-    answer: 1,
-    explanation: "9 × 7 = 63."
-  },
-  {
-    subject: "Maths",
-    topic: "Basic Arithmetic",
-    question: "What is 81 ÷ 9?",
-    options: ["7", "8", "9", "10"],
-    answer: 2,
-    explanation: "81 ÷ 9 = 9."
-  },
-
-  // Percentages
-  {
-    subject: "Maths",
-    topic: "Percentages",
-    question: "What is 20% of 100?",
-    options: ["10", "15", "20", "25"],
-    answer: 2,
-    explanation: "20% of 100 = 20."
-  },
-  {
-    subject: "Maths",
-    topic: "Percentages",
-    question: "What is 50% of 200?",
-    options: ["50", "75", "100", "150"],
-    answer: 2,
-    explanation: "50% of 200 = 100."
-  },
-  {
-    subject: "Maths",
-    topic: "Percentages",
-    question: "What is 10% of 500?",
-    options: ["5", "25", "50", "100"],
-    answer: 2,
-    explanation: "10% of 500 = 50."
-  },
-  {
-    subject: "Maths",
-    topic: "Percentages",
-    question: "What is 25% of 80?",
-    options: ["10", "15", "20", "25"],
-    answer: 2,
-    explanation: "25% of 80 = 20."
-  },
-  {
-    subject: "Maths",
-    topic: "Percentages",
-    question: "What is 75% of 200?",
-    options: ["100", "125", "150", "175"],
-    answer: 2,
-    explanation: "75% of 200 = 150."
-  },
-  {
-    subject: "Maths",
-    topic: "Percentages",
-    question: "What is 30% of 150?",
-    options: ["35", "40", "45", "50"],
-    answer: 2,
-    explanation: "30% of 150 = 45."
-  },
-  {
-    subject: "Maths",
-    topic: "Percentages",
-    question: "What is 40% of 250?",
-    options: ["80", "90", "100", "110"],
-    answer: 2,
-    explanation: "40% of 250 = 100."
-  },
-  {
-    subject: "Maths",
-    topic: "Percentages",
-    question: "What is 5% of 600?",
-    options: ["20", "25", "30", "35"],
-    answer: 2,
-    explanation: "5% of 600 = 30."
-  },
-
-  // Fractions
-  {
-    subject: "Maths",
-    topic: "Fractions",
-    question: "What is 1/2 of 100?",
-    options: ["25", "40", "50", "60"],
-    answer: 2,
-    explanation: "Half of 100 is 50."
-  },
-  {
-    subject: "Maths",
-    topic: "Fractions",
-    question: "What is 1/4 of 80?",
-    options: ["15", "20", "25", "30"],
-    answer: 1,
-    explanation: "One-fourth of 80 is 20."
-  },
-  {
-    subject: "Maths",
-    topic: "Fractions",
-    question: "What is 3/4 of 100?",
-    options: ["50", "60", "75", "80"],
-    answer: 2,
-    explanation: "3/4 of 100 = 75."
-  },
-  {
-    subject: "Maths",
-    topic: "Fractions",
-    question: "What is 2/5 of 100?",
-    options: ["20", "30", "40", "50"],
-    answer: 2,
-    explanation: "2/5 of 100 = 40."
-  },
-
-  // Average
-  {
-    subject: "Maths",
-    topic: "Average",
-    question: "What is the average of 10, 20 and 30?",
-    options: ["15", "20", "25", "30"],
-    answer: 1,
-    explanation: "(10 + 20 + 30) ÷ 3 = 20."
-  },
-  {
-    subject: "Maths",
-    topic: "Average",
-    question: "What is the average of 5, 10, 15 and 20?",
-    options: ["10", "12.5", "15", "20"],
-    answer: 1,
-    explanation: "(5 + 10 + 15 + 20) ÷ 4 = 12.5."
-  },
-  {
-    subject: "Maths",
-    topic: "Average",
-    question: "What is the average of 20 and 40?",
-    options: ["20", "25", "30", "35"],
-    answer: 2,
-    explanation: "(20 + 40) ÷ 2 = 30."
-  },
-  {
-    subject: "Maths",
-    topic: "Average",
-    question: "The average of 10, 20 and 40 is:",
-    options: ["20", "23.33", "25", "30"],
-    answer: 1,
-    explanation: "70 ÷ 3 = 23.33 approximately."
-  },
-  {
-    subject: "Maths",
-    topic: "Average",
-    question: "If the sum of 5 numbers is 100, their average is:",
-    options: ["10", "15", "20", "25"],
-    answer: 2,
-    explanation: "Average = 100 ÷ 5 = 20."
-  },
-
-  // Ratio
-  {
-    subject: "Maths",
-    topic: "Ratio",
-    question: "Simplify the ratio 10:20.",
-    options: ["1:2", "2:1", "1:3", "2:3"],
-    answer: 0,
-    explanation: "Divide both terms by 10 to get 1:2."
-  },
-  {
-    subject: "Maths",
-    topic: "Ratio",
-    question: "Simplify the ratio 15:25.",
-    options: ["2:3", "3:5", "5:3", "1:2"],
-    answer: 1,
-    explanation: "Divide both terms by 5 to get 3:5."
-  },
-  {
-    subject: "Maths",
-    topic: "Ratio",
-    question: "If the ratio of boys to girls is 2:3 and there are 20 boys, how many girls are there?",
-    options: ["20", "25", "30", "35"],
-    answer: 2,
-    explanation: "2 parts = 20, so 1 part = 10. Girls = 3 × 10 = 30."
-  },
-  {
-    subject: "Maths",
-    topic: "Ratio",
-    question: "Divide 100 in the ratio 2:3. The larger share is:",
-    options: ["30", "40", "50", "60"],
-    answer: 3,
-    explanation: "Total parts = 5. Larger share = 3/5 × 100 = 60."
-  },
-
-  // Profit & Loss
-  {
-    subject: "Maths",
-    topic: "Profit & Loss",
-    question: "If 3 pens cost Rs. 60, what is the cost of one pen?",
-    options: ["Rs. 15", "Rs. 20", "Rs. 25", "Rs. 30"],
-    answer: 1,
-    explanation: "60 ÷ 3 = Rs. 20."
-  },
-  {
-    subject: "Maths",
-    topic: "Profit & Loss",
-    question: "A shirt costs Rs. 1,000 and is sold for Rs. 1,200. The profit is:",
-    options: ["Rs. 100", "Rs. 150", "Rs. 200", "Rs. 250"],
-    answer: 2,
-    explanation: "Profit = 1200 - 1000 = Rs. 200."
-  },
-  {
-    subject: "Maths",
-    topic: "Profit & Loss",
-    question: "Cost price = Rs. 500, selling price = Rs. 600. Profit is:",
-    options: ["Rs. 50", "Rs. 100", "Rs. 150", "Rs. 200"],
-    answer: 1,
-    explanation: "Profit = 600 - 500 = Rs. 100."
-  },
-  {
-    subject: "Maths",
-    topic: "Profit & Loss",
-    question: "Cost price = Rs. 1,000, selling price = Rs. 900. Loss is:",
-    options: ["Rs. 50", "Rs. 100", "Rs. 150", "Rs. 200"],
-    answer: 1,
-    explanation: "Loss = 1000 - 900 = Rs. 100."
-  },
-  {
-    subject: "Maths",
-    topic: "Profit & Loss",
-    question: "If cost price is Rs. 100 and selling price is Rs. 120, profit percentage is:",
-    options: ["10%", "15%", "20%", "25%"],
-    answer: 2,
-    explanation: "Profit = 20. Profit percentage = 20/100 × 100 = 20%."
-  },
-  {
-    subject: "Maths",
-    topic: "Profit & Loss",
-    question: "If cost price is Rs. 200 and selling price is Rs. 160, loss percentage is:",
-    options: ["10%", "15%", "20%", "25%"],
-    answer: 2,
-    explanation: "Loss = 40. Loss percentage = 40/200 × 100 = 20%."
-  },
-  {
-    subject: "Maths",
-    topic: "Profit & Loss",
-    question: "An item costing Rs. 500 is sold at a profit of 10%. Its selling price is:",
-    options: ["Rs. 510", "Rs. 525", "Rs. 550", "Rs. 600"],
-    answer: 2,
-    explanation: "10% of 500 = 50. Selling price = 550."
-  },
-  {
-    subject: "Maths",
-    topic: "Profit & Loss",
-    question: "An item costing Rs. 800 is sold at a loss of 25%. Its selling price is:",
-    options: ["Rs. 500", "Rs. 600", "Rs. 650", "Rs. 700"],
-    answer: 1,
-    explanation: "25% of 800 = 200. Selling price = 600."
-  },
-  {
-    subject: "Maths",
-    topic: "Profit & Loss",
-    question: "If the marked price is Rs. 1,000 and discount is 10%, selling price is:",
-    options: ["Rs. 800", "Rs. 850", "Rs. 900", "Rs. 950"],
-    answer: 2,
-    explanation: "10% discount = Rs. 100. Selling price = Rs. 900."
-  },
-  {
-    subject: "Maths",
-    topic: "Profit & Loss",
-    question: "A discount of 20% on Rs. 500 is:",
-    options: ["Rs. 50", "Rs. 75", "Rs. 100", "Rs. 125"],
-    answer: 2,
-    explanation: "20% of 500 = Rs. 100."
-  },
-  {
-    subject: "Maths",
-    topic: "Profit & Loss",
-    question: "If an item is marked at Rs. 2,000 and a 25% discount is given, the selling price is:",
-    options: ["Rs. 1,250", "Rs. 1,500", "Rs. 1,600", "Rs. 1,750"],
-    answer: 1,
-    explanation: "25% of 2000 = 500. Selling price = 1500."
-  },
-
-  // BODMAS
-  {
-    subject: "Maths",
-    topic: "BODMAS",
-    question: "What is 2 + 3 × 4?",
-    options: ["20", "14", "24", "10"],
-    answer: 1,
-    explanation: "Multiplication first: 3 × 4 = 12, then 2 + 12 = 14."
-  },
-  {
-    subject: "Maths",
-    topic: "BODMAS",
-    question: "What is (10 + 5) × 2?",
-    options: ["20", "25", "30", "35"],
-    answer: 2,
-    explanation: "(10 + 5) × 2 = 15 × 2 = 30."
-  },
-  {
-    subject: "Maths",
-    topic: "BODMAS",
-    question: "What is 100 ÷ 5 + 10?",
-    options: ["20", "25", "30", "35"],
-    answer: 2,
-    explanation: "100 ÷ 5 = 20, then 20 + 10 = 30."
-  },
-  {
-    subject: "Maths",
-    topic: "BODMAS",
-    question: "What is 8 + 12 ÷ 4?",
-    options: ["5", "8", "11", "20"],
-    answer: 2,
-    explanation: "12 ÷ 4 = 3, then 8 + 3 = 11."
-  },
-  {
-    subject: "Maths",
-    topic: "BODMAS",
-    question: "What is 5 × (6 + 2)?",
-    options: ["30", "35", "40", "45"],
-    answer: 2,
-    explanation: "6 + 2 = 8, then 5 × 8 = 40."
-  },
-
-  // Squares & Square Roots
-  {
-    subject: "Maths",
-    topic: "Squares & Square Roots",
-    question: "What is 2²?",
-    options: ["2", "4", "6", "8"],
-    answer: 1,
-    explanation: "2 × 2 = 4."
-  },
-  {
-    subject: "Maths",
-    topic: "Squares & Square Roots",
-    question: "What is 5²?",
-    options: ["10", "15", "20", "25"],
-    answer: 3,
-    explanation: "5 × 5 = 25."
-  },
-  {
-    subject: "Maths",
-    topic: "Squares & Square Roots",
-    question: "What is 10²?",
-    options: ["10", "50", "100", "1,000"],
-    answer: 2,
-    explanation: "10 × 10 = 100."
-  },
-  {
-    subject: "Maths",
-    topic: "Squares & Square Roots",
-    question: "What is the square root of 64?",
-    options: ["6", "7", "8", "9"],
-    answer: 2,
-    explanation: "8 × 8 = 64."
-  },
-  {
-    subject: "Maths",
-    topic: "Squares & Square Roots",
-    question: "What is the square root of 144?",
-    options: ["10", "11", "12", "14"],
-    answer: 2,
-    explanation: "12 × 12 = 144."
-  },
-
-  // Algebra
-  {
-    subject: "Maths",
-    topic: "Algebra",
-    question: "If x + 5 = 10, what is x?",
-    options: ["3", "4", "5", "6"],
-    answer: 2,
-    explanation: "x = 10 - 5 = 5."
-  },
-  {
-    subject: "Maths",
-    topic: "Algebra",
-    question: "If x - 7 = 3, what is x?",
-    options: ["4", "7", "10", "12"],
-    answer: 2,
-    explanation: "x = 3 + 7 = 10."
-  },
-  {
-    subject: "Maths",
-    topic: "Algebra",
-    question: "If 2x = 20, what is x?",
-    options: ["5", "10", "15", "20"],
-    answer: 1,
-    explanation: "x = 20 ÷ 2 = 10."
-  },
-  {
-    subject: "Maths",
-    topic: "Algebra",
-    question: "If 3x = 21, what is x?",
-    options: ["6", "7", "8", "9"],
-    answer: 1,
-    explanation: "x = 21 ÷ 3 = 7."
-  },
-  {
-    subject: "Maths",
-    topic: "Algebra",
-    question: "If x/5 = 4, what is x?",
-    options: ["10", "15", "20", "25"],
-    answer: 2,
-    explanation: "x = 4 × 5 = 20."
-  },
-
-  // Geometry
-  {
-    subject: "Maths",
-    topic: "Geometry",
-    question: "What is the perimeter of a square with side 5 cm?",
-    options: ["10 cm", "15 cm", "20 cm", "25 cm"],
-    answer: 2,
-    explanation: "Perimeter = 4 × side = 4 × 5 = 20 cm."
-  },
-  {
-    subject: "Maths",
-    topic: "Geometry",
-    question: "What is the area of a square with side 5 cm?",
-    options: ["10 cm²", "20 cm²", "25 cm²", "30 cm²"],
-    answer: 2,
-    explanation: "Area = side × side = 5 × 5 = 25 cm²."
-  },
-  {
-    subject: "Maths",
-    topic: "Geometry",
-    question: "What is the perimeter of a rectangle with length 10 cm and width 5 cm?",
-    options: ["20 cm", "25 cm", "30 cm", "50 cm"],
-    answer: 2,
-    explanation: "Perimeter = 2(10 + 5) = 30 cm."
-  },
-  {
-    subject: "Maths",
-    topic: "Geometry",
-    question: "What is the area of a rectangle with length 10 cm and width 5 cm?",
-    options: ["15 cm²", "30 cm²", "50 cm²", "100 cm²"],
-    answer: 2,
-    explanation: "Area = 10 × 5 = 50 cm²."
-  },
-  {
-    subject: "Maths",
-    topic: "Geometry",
-    question: "A triangle has how many sides?",
-    options: ["2", "3", "4", "5"],
-    answer: 1,
-    explanation: "A triangle has 3 sides."
-  },
-  {
-    subject: "Maths",
-    topic: "Geometry",
-    question: "A square has how many equal sides?",
-    options: ["2", "3", "4", "5"],
-    answer: 2,
-    explanation: "A square has 4 equal sides."
-  },
-  {
-    subject: "Maths",
-    topic: "Geometry",
-    question: "A right angle measures:",
-    options: ["45°", "60°", "90°", "180°"],
-    answer: 2,
-    explanation: "A right angle measures 90°."
-  },
-  {
-    subject: "Maths",
-    topic: "Geometry",
-    question: "A straight angle measures:",
-    options: ["90°", "120°", "180°", "360°"],
-    answer: 2,
-    explanation: "A straight angle measures 180°."
-  },
-  {
-    subject: "Maths",
-    topic: "Geometry",
-    question: "A full angle measures:",
-    options: ["90°", "180°", "270°", "360°"],
-    answer: 3,
-    explanation: "A full angle measures 360°."
-  },
-  {
-    subject: "Maths",
-    topic: "Geometry",
-    question: "How many degrees are there in the angles of a triangle in total?",
-    options: ["90°", "180°", "270°", "360°"],
-    answer: 1,
-    explanation: "The sum of the angles of a triangle is 180°."
-  },
-
-  // Units
-  {
-    subject: "Maths",
-    topic: "Units & Measurement",
-    question: "How many meters are in 1 kilometer?",
-    options: ["100", "500", "1,000", "10,000"],
-    answer: 2,
-    explanation: "1 kilometer = 1,000 meters."
-  },
-  {
-    subject: "Maths",
-    topic: "Units & Measurement",
-    question: "How many centimeters are in 1 meter?",
-    options: ["10", "50", "100", "1,000"],
-    answer: 2,
-    explanation: "1 meter = 100 centimeters."
-  },
-  {
-    subject: "Maths",
-    topic: "Units & Measurement",
-    question: "How many millimeters are in 1 centimeter?",
-    options: ["5", "10", "50", "100"],
-    answer: 1,
-    explanation: "1 centimeter = 10 millimeters."
-  },
-  {
-    subject: "Maths",
-    topic: "Units & Measurement",
-    question: "How many minutes are in 1 hour?",
-    options: ["30", "45", "60", "90"],
-    answer: 2,
-    explanation: "1 hour = 60 minutes."
-  },
-  {
-    subject: "Maths",
-    topic: "Units & Measurement",
-    question: "How many seconds are in 1 minute?",
-    options: ["30", "45", "60", "100"],
-    answer: 2,
-    explanation: "1 minute = 60 seconds."
-  },
-  {
-    subject: "Maths",
-    topic: "Units & Measurement",
-    question: "How many hours are in one day?",
-    options: ["12", "18", "24", "48"],
-    answer: 2,
-    explanation: "One day has 24 hours."
-  },
-  {
-    subject: "Maths",
-    topic: "Units & Measurement",
-    question: "How many days are there in a week?",
-    options: ["5", "6", "7", "8"],
-    answer: 2,
-    explanation: "A week has 7 days."
-  },
-
-  // Speed, Distance & Time
-  {
-    subject: "Maths",
-    topic: "Speed, Distance & Time",
-    question: "If a car travels 60 km in 1 hour, its speed is:",
-    options: ["30 km/h", "40 km/h", "60 km/h", "80 km/h"],
-    answer: 2,
-    explanation: "Speed = distance ÷ time = 60 ÷ 1 = 60 km/h."
-  },
-  {
-    subject: "Maths",
-    topic: "Speed, Distance & Time",
-    question: "A car travels at 50 km/h for 2 hours. Distance covered is:",
-    options: ["50 km", "75 km", "100 km", "150 km"],
-    answer: 2,
-    explanation: "Distance = speed × time = 50 × 2 = 100 km."
-  },
-  {
-    subject: "Maths",
-    topic: "Speed, Distance & Time",
-    question: "If distance is 120 km and time is 2 hours, speed is:",
-    options: ["40 km/h", "50 km/h", "60 km/h", "80 km/h"],
-    answer: 2,
-    explanation: "Speed = 120 ÷ 2 = 60 km/h."
-  },
-  {
-    subject: "Maths",
-    topic: "Speed, Distance & Time",
-    question: "If a man walks 5 km in 1 hour, how far will he walk in 4 hours?",
-    options: ["10 km", "15 km", "20 km", "25 km"],
-    answer: 2,
-    explanation: "Distance = 5 × 4 = 20 km."
-  },
-  {
-    subject: "Maths",
-    topic: "Speed, Distance & Time",
-    question: "A train travels 300 km in 5 hours. Its average speed is:",
-    options: ["50 km/h", "60 km/h", "70 km/h", "80 km/h"],
-    answer: 1,
-    explanation: "Speed = 300 ÷ 5 = 60 km/h."
-  },
-
-  // Work
-  {
-    subject: "Maths",
-    topic: "Work",
-    question: "If 5 workers complete a job in 10 days, the total worker-days are:",
-    options: ["15", "25", "50", "100"],
-    answer: 2,
-    explanation: "Worker-days = 5 × 10 = 50."
-  },
-  {
-    subject: "Maths",
-    topic: "Work",
-    question: "If 10 workers complete a job in 5 days, the total worker-days are:",
-    options: ["25", "40", "50", "100"],
-    answer: 2,
-    explanation: "Worker-days = 10 × 5 = 50."
-  },
-  {
-    subject: "Maths",
-    topic: "Work",
-    question: "A person works 8 hours per day. How many hours does he work in 5 days?",
-    options: ["30", "35", "40", "45"],
-    answer: 2,
-    explanation: "8 × 5 = 40 hours."
-  },
-
-  // Decimals
-  {
-    subject: "Maths",
-    topic: "Decimals",
-    question: "What is 0.5 as a fraction?",
-    options: ["1/2", "1/3", "2/3", "3/4"],
-    answer: 0,
-    explanation: "0.5 = 5/10 = 1/2."
-  },
-  {
-    subject: "Maths",
-    topic: "Decimals",
-    question: "What is 0.25 as a fraction?",
-    options: ["1/2", "1/3", "1/4", "3/4"],
-    answer: 2,
-    explanation: "0.25 = 25/100 = 1/4."
-  },
-  {
-    subject: "Maths",
-    topic: "Decimals",
-    question: "What is 0.75 as a fraction?",
-    options: ["1/2", "1/4", "2/3", "3/4"],
-    answer: 3,
-    explanation: "0.75 = 75/100 = 3/4."
-  },
-  {
-    subject: "Maths",
-    topic: "Decimals",
-    question: "What is 1.5 as a fraction?",
-    options: ["1/2", "3/2", "2/3", "5/2"],
-    answer: 1,
-    explanation: "1.5 = 15/10 = 3/2."
-  },
-  {
-    subject: "Maths",
-    topic: "Decimals",
-    question: "What is 2.5 + 1.5?",
-    options: ["3", "4", "4.5", "5"],
-    answer: 1,
-    explanation: "2.5 + 1.5 = 4."
-  },
-  {
-    subject: "Maths",
-    topic: "Decimals",
-    question: "What is 5.5 - 2.5?",
-    options: ["2", "3", "3.5", "4"],
-    answer: 1,
-    explanation: "5.5 - 2.5 = 3."
-  },
-  {
-    subject: "Maths",
-    topic: "Decimals",
-    question: "What is 0.5 × 10?",
-    options: ["2", "5", "10", "15"],
-    answer: 1,
-    explanation: "0.5 × 10 = 5."
-  },
-  {
-    subject: "Maths",
-    topic: "Decimals",
-    question: "What is 10 ÷ 0.5?",
-    options: ["5", "10", "15", "20"],
-    answer: 3,
-    explanation: "10 ÷ 0.5 = 20."
-  },
-
-  // Number Series
-  {
-    subject: "Maths",
-    topic: "Number Series",
-    question: "What is the next number: 2, 4, 6, 8, ___?",
-    options: ["9", "10", "11", "12"],
-    answer: 1,
-    explanation: "The pattern increases by 2, so the next number is 10."
-  },
-  {
-    subject: "Maths",
-    topic: "Number Series",
-    question: "What is the next number: 5, 10, 15, 20, ___?",
-    options: ["22", "24", "25", "30"],
-    answer: 2,
-    explanation: "The pattern increases by 5, so the next number is 25."
-  },
-  {
-    subject: "Maths",
-    topic: "Number Series",
-    question: "What is the next number: 3, 6, 12, 24, ___?",
-    options: ["36", "42", "48", "50"],
-    answer: 2,
-    explanation: "Each number is multiplied by 2, so the next number is 48."
-  },
-  {
-    subject: "Maths",
-    
-    },
-
-
-    /* ---------- COMPUTER SAMPLE ---------- */
-
-    {
-        subject: "Computer",
-        topic: "Computer Fundamentals",
-
-        question: "Which device is used to enter text into a computer?",
-
-        options: [
-            "Monitor",
-            "Keyboard",
-            "Speaker",
-            "Printer"
-        ],
-
-        answer: 1,
-
-        explanation:
-        "A keyboard is an input device used to enter text and commands."
+    if (!Array.isArray(DATA.quizHistory)) {
+      DATA.quizHistory = [];
     }
 
-];
+    return true;
 
+  } catch (e) {
 
-/* ============================================================
-   QUIZ VARIABLES
-   ============================================================ */
+    console.error(e);
+    return false;
 
-let quizQuestions = [];
-
-let currentQuestion = 0;
-
-let userScore = 0;
-
-let answered = false;
-
-let timerInterval;
-
-let timeRemaining = 0;
-
-
-/* ============================================================
-   LOAD TOPICS
-   ============================================================ */
-
-function loadTopics() {
-
-    const subject =
-        document.getElementById("subjectSelect").value;
-
-    const topicSelect =
-        document.getElementById("topicSelect");
-
-    topicSelect.innerHTML =
-        '<option value="">-- Select Topic --</option>';
-
-    if (!subject) {
-        return;
-    }
-
-    topics[subject].forEach(topic => {
-
-        const option =
-            document.createElement("option");
-
-        option.value = topic;
-
-        option.textContent = topic;
-
-        topicSelect.appendChild(option);
-
-    });
-
+  }
 }
 
 
-/* ============================================================
-   START QUIZ
-   ============================================================ */
+/* =========================================================
+   SAMPLE QUESTIONS
+========================================================= */
 
-function startQuiz() {
+function seedData() {
 
-    const subject =
-        document.getElementById("subjectSelect").value;
+  const samples = [
 
-    const topic =
-        document.getElementById("topicSelect").value;
+    {
+      question: "Bogra Formula was presented in which year?",
+      options: ["1951", "1952", "1953", "1954"],
+      answer: "1953",
+      subject: "Pakistan Studies",
+      difficulty: "Easy",
+      explanation: ""
+    },
 
-    let count =
-        parseInt(
-            document.getElementById("questionCount").value
-        );
+    {
+      question: "Who assisted Quaid-e-Azam in preparing the 14 Points?",
+      options: [
+        "Muhammad Ali Jauhar",
+        "Allama Iqbal",
+        "Liaquat Ali Khan",
+        "Sir Syed Ahmad Khan"
+      ],
+      answer: "Muhammad Ali Jauhar",
+      subject: "Pakistan Studies",
+      difficulty: "Medium",
+      explanation: ""
+    },
 
-    const minutes =
-        parseInt(
-            document.getElementById("timeLimit").value
-        );
+    {
+      question: "The Diarchy system was introduced in the Indian Subcontinent in which year?",
+      options: ["1909", "1919", "1929", "1935"],
+      answer: "1919",
+      subject: "Pakistan Studies",
+      difficulty: "Easy",
+      explanation: ""
+    },
 
+    {
+      question: "Sir Syed Ahmad Khan became a member of the Legislative Council in:",
+      options: ["1876", "1877", "1878", "1880"],
+      answer: "1878",
+      subject: "Pakistan Studies",
+      difficulty: "Medium",
+      explanation: ""
+    },
 
-    if (!subject) {
-
-        alert("Please select a subject.");
-
-        return;
+    {
+      question: "Pakistan became independent in which year?",
+      options: [],
+      answer: "1947",
+      subject: "Pakistan Studies",
+      difficulty: "Easy",
+      explanation: ""
     }
 
+  ];
 
-    if (!topic) {
-
-        alert("Please select a topic.");
-
-        return;
-    }
-
-
-    /* Filter MCQs according to Subject + Topic */
-
-    quizQuestions =
-        questions.filter(q =>
-            q.subject === subject &&
-            q.topic === topic
-        );
-
-
-    if (quizQuestions.length === 0) {
-
-        alert(
-            "No MCQs available for this topic yet."
-        );
-
-        return;
-    }
-
-
-    /* If topic has fewer questions */
-
-    if (count > quizQuestions.length) {
-
-        count = quizQuestions.length;
-
-    }
-
-
-    /* Random questions */
-
-    quizQuestions =
-        [...quizQuestions]
-        .sort(() => Math.random() - 0.5)
-        .slice(0, count);
-
-
-    currentQuestion = 0;
-
-    userScore = 0;
-
-    timeRemaining = minutes * 60;
-
-
-    document
-        .getElementById("home")
-        .classList.add("hidden");
-
-
-    document
-        .getElementById("quiz")
-        .classList.remove("hidden");
-
-
-    document
-        .getElementById("score")
-        .textContent = "0";
-
-
-    startTimer();
-
-    showQuestion();
-
+  return {
+    theme: "light",
+    questions: samples.map(q => ({
+      ...q,
+      id: uid(),
+      createdAt: Date.now()
+    })),
+    quizHistory: [],
+    todayQuiz: null
+  };
 }
 
 
-/* ============================================================
-   SHOW QUESTION
-   ============================================================ */
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
-function showQuestion() {
+function navigate(page) {
 
-    answered = false;
+  document.querySelectorAll(".nav-item").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.page === page);
+  });
 
+  document.querySelectorAll(".mobile-nav button").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.page === page);
+  });
 
-    const q =
-        quizQuestions[currentQuestion];
-
-
-    document
-        .getElementById("questionNumber")
-        .textContent =
-        "Question " + (currentQuestion + 1);
-
-
-    document
-        .getElementById("progress")
-        .textContent =
-        (currentQuestion + 1) +
-        "/" +
-        quizQuestions.length;
-
-
-    document
-        .getElementById("question")
-        .textContent =
-        q.question;
-
-
-    const explanation =
-        document.getElementById("explanation");
-
-
-    explanation.style.display = "none";
-
-
-    explanation.textContent =
-        q.explanation ||
-        "No explanation available.";
-
-
-    const options =
-        document.getElementById("options");
-
-
-    options.innerHTML = "";
-
-
-    q.options.forEach((option, index) => {
-
-        const button =
-            document.createElement("button");
-
-
-        button.className = "option";
-
-
-        button.textContent =
-            String.fromCharCode(65 + index) +
-            ". " +
-            option;
-
-
-        button.onclick = function() {
-
-            selectAnswer(index);
-
-        };
-
-
-        options.appendChild(button);
-
-    });
-
+  if (page === "dashboard") renderDashboard();
+  if (page === "quiz") startQuizPage();
+  if (page === "bank") renderBank();
+  if (page === "import") renderImport();
+  if (page === "manage") renderManage();
 }
 
 
-/* ============================================================
-   SELECT ANSWER
-   ============================================================ */
+/* =========================================================
+   DASHBOARD
+========================================================= */
 
-function selectAnswer(selectedIndex) {
+function renderDashboard() {
 
-    if (answered) return;
+  const total = DATA.questions.length;
 
+  const subjects = new Set(
+    DATA.questions.map(q => q.subject || "General")
+  ).size;
 
-    answered = true;
+  const history = DATA.quizHistory || [];
 
+  const avg = history.length
+    ? Math.round(
+        history.reduce((sum, x) => sum + x.percentage, 0) /
+        history.length
+      )
+    : 0;
 
-    const q =
-        quizQuestions[currentQuestion];
+  document.getElementById("app").innerHTML = `
 
+    <h1 class="page-title">Dashboard</h1>
 
-    const buttons =
-        document.querySelectorAll(".option");
+    <p class="page-subtitle">
+      Practice smarter with your personal MCQ question bank.
+    </p>
 
+    <div class="card quick-start">
 
-    buttons.forEach((button, index) => {
+      <h2>🎯 Start Today's Practice</h2>
 
-        button.disabled = true;
+      <p style="color:var(--muted)">
+        Create a new quiz from your question bank.
+        The quiz can contain questions with options and questions without options.
+      </p>
 
+      <div class="quiz-settings">
 
-        if (index === q.answer) {
+        <div>
+          <label>Subject</label>
 
-            button.classList.add("correct");
+          <select id="dashSubject">
+            <option value="all">All Subjects</option>
+            ${getSubjectOptions()}
+          </select>
+        </div>
 
-        }
+        <div>
+          <label>Difficulty</label>
 
+          <select id="dashDifficulty">
+            <option value="all">All Levels</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </select>
+        </div>
 
-        if (
-            index === selectedIndex &&
-            selectedIndex !== q.answer
-        ) {
+        <div>
+          <label>Questions</label>
 
-            button.classList.add("wrong");
+          <select id="dashCount">
+            <option value="100">100 Questions</option>
+            <option value="50">50 Questions</option>
+            <option value="30">30 Questions</option>
+            <option value="20">20 Questions</option>
+            <option value="10">10 Questions</option>
+          </select>
+        </div>
 
-        }
+        <div style="display:flex;align-items:end">
 
-    });
+          <button
+            class="btn btn-primary"
+            style="width:100%"
+            onclick="createQuizFromDashboard()">
+            Start Quiz
+          </button>
 
+        </div>
 
-    if (selectedIndex === q.answer) {
+      </div>
 
-        userScore++;
+    </div>
 
 
-        document
-            .getElementById("score")
-            .textContent =
-            userScore;
+    <div class="grid grid-4">
 
-    }
+      <div class="card stat">
+        <div class="stat-label">TOTAL QUESTIONS</div>
+        <div class="stat-value">${total}</div>
+      </div>
 
-}
+      <div class="card stat">
+        <div class="stat-label">SUBJECTS</div>
+        <div class="stat-value">${subjects}</div>
+      </div>
 
+      <div class="card stat">
+        <div class="stat-label">QUIZZES COMPLETED</div>
+        <div class="stat-value">${history.length}</div>
+      </div>
 
-/* ============================================================
-   EXPLANATION
-   ============================================================ */
+      <div class="card stat">
+        <div class="stat-label">AVERAGE SCORE</div>
+        <div class="stat-value">${avg}%</div>
+      </div>
 
-function toggleExplanation() {
+    </div>
 
-    const explanation =
-        document.getElementById("explanation");
 
-
-    if (
-        explanation.style.display === "block"
-    ) {
-
-        explanation.style.display = "none";
-
-    } else {
-
-        explanation.style.display = "block";
-
-    }
-
-}
-
-
-/* ============================================================
-   NEXT QUESTION
-   ============================================================ */
-
-function nextQuestion() {
-
-    if (!answered) {
-
-        alert(
-            "Please select an answer first."
-        );
-
-        return;
-    }
-
-
-    currentQuestion++;
-
-
-    if (
-        currentQuestion >=
-        quizQuestions.length
-    ) {
-
-        finishQuiz();
-
-        return;
-
-    }
-
-
-    showQuestion();
-
-}
-
-
-/* ============================================================
-   TIMER
-   ============================================================ */
-
-function startTimer() {
-
-    clearInterval(timerInterval);
-
-
-    updateTimer();
-
-
-    timerInterval =
-        setInterval(() => {
-
-            timeRemaining--;
-
-
-            updateTimer();
-
-
-            if (timeRemaining <= 0) {
-
-                clearInterval(timerInterval);
-
-                finishQuiz();
-
-            }
-
-        }, 1000);
-
-}
-
-
-function updateTimer() {
-
-    let minutes =
-        Math.floor(timeRemaining / 60);
-
-
-    let seconds =
-        timeRemaining % 60;
-
-
-    minutes =
-        String(minutes).padStart(2, "0");
-
-
-    seconds =
-        String(seconds).padStart(2, "0");
-
-
-    document
-        .getElementById("timer")
-        .textContent =
-        minutes + ":" + seconds;
-
-}
-
-
-/* ============================================================
-   FINISH QUIZ
-   ============================================================ */
-
-function finishQuiz() {
-
-    clearInterval(timerInterval);
-
-
-    document
-        .getElementById("quiz")
-        .classList.add("hidden");
-
-
-    document
-        .getElementById("result")
-        .classList.remove("hidden");
-
-
-    const total =
-        quizQuestions.length;
-
-
-    const percentage =
-        Math.round(
-            (userScore / total) * 100
-        );
-
-
-    document
-        .getElementById("finalScore")
-        .textContent =
-        userScore + " / " + total;
-
-
-    document
-        .getElementById("percentage")
-        .textContent =
-        "Percentage: " +
-        percentage +
-        "%";
-
-
-    let message;
-
-
-    if (percentage >= 80) {
-
-        message =
-            "Excellent! 🔥 Keep it up.";
-
-    } else if (percentage >= 60) {
-
-        message =
-            "Good job! 👍 Keep practicing.";
-
-    } else {
-
-        message =
-            "Keep practicing. 💪 You can improve.";
-
-    }
-
-
-    document
-        .getElementById("resultMessage")
-        .textContent =
-        message;
-
-}
-
-
-/* ============================================================
-   HOME
-   ============================================================ */
-
-function goHome() {
-
-    clearInterval(timerInterval);
-
-    location.reload();
-
-}
-
-</script>
-
-</body>
-    </html>
+    <div style="margin-top:20px" class="card card-pad"
