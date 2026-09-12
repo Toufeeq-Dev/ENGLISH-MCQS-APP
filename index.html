@@ -1,147 +1,496 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>English MCQ Practice</title>
+<title>MCQ Master</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f1f3f6;
-        }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f4f7;
+    color: #222;
+}
 
-        .app {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-        }
+.container {
+    max-width: 750px;
+    margin: auto;
+    padding: 15px;
+}
 
-        h1 {
-            text-align: center;
-            font-size: 26px;
-        }
+.header {
+    background: #222;
+    color: white;
+    padding: 22px 15px;
+    text-align: center;
+    border-radius: 14px;
+    margin-bottom: 15px;
+}
 
-        .info {
-            display: flex;
-            justify-content: space-between;
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
+.header h1 {
+    margin: 0;
+    font-size: 27px;
+}
 
-        .quiz-box {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-        }
+.header p {
+    margin: 7px 0 0;
+    opacity: 0.8;
+}
 
-        #question {
-            font-size: 20px;
-            line-height: 1.5;
-        }
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
 
-        .option {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: white;
-            text-align: left;
-            font-size: 16px;
-        }
+h2 {
+    margin-top: 0;
+}
 
-        .option.correct {
-            background: #d4edda;
-            border-color: #28a745;
-        }
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 7px;
+}
 
-        .option.wrong {
-            background: #f8d7da;
-            border-color: #dc3545;
-        }
+select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    font-size: 16px;
+    background: white;
+}
 
-        button {
-            cursor: pointer;
-        }
+.btn {
+    width: 100%;
+    border: none;
+    padding: 14px;
+    border-radius: 9px;
+    background: #222;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 18px;
+}
 
-        #explanation-btn,
-        #next-btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            margin-top: 12px;
-            font-size: 16px;
-        }
+.btn:hover {
+    opacity: 0.9;
+}
 
-        #explanation-btn {
-            background: #e7f1ff;
-        }
+.hidden {
+    display: none;
+}
 
-        #next-btn {
-            background: #222;
-            color: white;
-        }
+.info {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
 
-        #explanation {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            background: #eef6ff;
-            border-radius: 8px;
-            line-height: 1.5;
-        }
-    </style>
+.info-box {
+    flex: 1;
+    background: white;
+    padding: 12px 5px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.timer {
+    color: #d00000;
+}
+
+.question-box {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+}
+
+.question-number {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.question {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.option {
+    width: 100%;
+    padding: 14px;
+    margin: 7px 0;
+    border: 2px solid #ddd;
+    border-radius: 9px;
+    background: white;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.option.correct {
+    background: #d9f7d5;
+    border-color: green;
+}
+
+.option.wrong {
+    background: #ffdada;
+    border-color: red;
+}
+
+.option:disabled {
+    cursor: default;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.next-btn {
+    flex: 1;
+    border: none;
+    padding: 13px;
+    border-radius: 8px;
+    background: #222;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.explanation-btn {
+    border: none;
+    padding: 13px;
+    border-radius: 8px;
+    background: #e9ecef;
+    font-size: 15px;
+}
+
+.explanation {
+    display: none;
+    background: #f1f3f5;
+    padding: 13px;
+    margin-top: 12px;
+    border-radius: 8px;
+    line-height: 1.5;
+}
+
+.result {
+    text-align: center;
+}
+
+.final-score {
+    font-size: 40px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.back-btn {
+    background: #666;
+}
+
+@media (max-width: 500px) {
+    .question {
+        font-size: 18px;
+    }
+
+    .info-box {
+        font-size: 12px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<div class="app">
+<div class="container">
 
-    <h1>📚 English MCQ Practice</h1>
-
-    <div class="info">
-        <span id="question-number">Question 1/3</span>
-        <span id="score">Score: 0</span>
+    <div class="header">
+        <h1>📚 MCQ Master</h1>
+        <p>Government Job Test Preparation</p>
     </div>
 
-    <div class="quiz-box">
 
-        <h2 id="question"></h2>
+    <!-- =========================
+         HOME / SELECTION SCREEN
+         ========================= -->
 
-        <div id="options"></div>
+    <div id="home">
 
-        <button id="explanation-btn">
-            ℹ️ Explanation
+        <div class="card">
+
+            <h2>🎯 Select Your Test</h2>
+
+            <label>Subject</label>
+
+            <select id="subjectSelect" onchange="loadTopics()">
+                <option value="">-- Select Subject --</option>
+                <option value="English">📘 English</option>
+                <option value="General Knowledge">📗 General Knowledge</option>
+                <option value="Pak Study">📕 Pak Study</option>
+                <option value="Islamiat">📙 Islamiat</option>
+                <option value="General Science">🔬 General Science</option>
+                <option value="Computer">💻 Computer</option>
+            </select>
+
+
+            <label>Topic</label>
+
+            <select id="topicSelect">
+                <option value="">-- Select Topic --</option>
+            </select>
+
+
+            <label>Number of Questions</label>
+
+            <select id="questionCount">
+                <option value="30">30 Questions</option>
+                <option value="60">60 Questions</option>
+                <option value="100" selected>100 Questions</option>
+            </select>
+
+
+            <label>Time</label>
+
+            <select id="timeLimit">
+                <option value="20">20 Minutes</option>
+                <option value="40">40 Minutes</option>
+                <option value="60" selected>60 Minutes</option>
+            </select>
+
+
+            <button class="btn" onclick="startQuiz()">
+                🚀 Start Quiz
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         QUIZ SCREEN
+         ========================= -->
+
+    <div id="quiz" class="hidden">
+
+        <div class="info">
+
+            <div class="info-box">
+                Question
+                <br>
+                <span id="progress">1/10</span>
+            </div>
+
+            <div class="info-box">
+                Score
+                <br>
+                <span id="score">0</span>
+            </div>
+
+            <div class="info-box timer">
+                Time
+                <br>
+                <span id="timer">60:00</span>
+            </div>
+
+        </div>
+
+
+        <div class="question-box">
+
+            <div class="question-number" id="questionNumber">
+                Question 1
+            </div>
+
+            <div class="question" id="question">
+                Question
+            </div>
+
+            <div id="options"></div>
+
+
+            <div class="buttons">
+
+                <button
+                    class="explanation-btn"
+                    onclick="toggleExplanation()">
+                    ℹ Explanation
+                </button>
+
+                <button
+                    class="next-btn"
+                    onclick="nextQuestion()">
+                    Next →
+                </button>
+
+            </div>
+
+
+            <div
+                class="explanation"
+                id="explanation">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         RESULT SCREEN
+         ========================= -->
+
+    <div id="result" class="card result hidden">
+
+        <h2>🎉 Test Completed!</h2>
+
+        <div
+            class="final-score"
+            id="finalScore">
+            0 / 0
+        </div>
+
+        <p id="percentage">
+            Percentage: 0%
+        </p>
+
+        <p id="resultMessage"></p>
+
+        <button
+            class="btn"
+            onclick="location.reload()">
+            🔄 Retry
         </button>
 
-        <div id="explanation"></div>
-
-        <button id="next-btn">
-            Next Question →
+        <button
+            class="btn back-btn"
+            onclick="goHome()">
+            🏠 Home
         </button>
 
     </div>
 
 </div>
 
+
 <script>
+
+/* ============================================================
+   SUBJECTS + TOPICS
+   ============================================================ */
+
+const topics = {
+
+    "English": [
+        "Synonyms",
+        "Antonyms",
+        "Prepositions",
+        "Articles",
+        "Grammar",
+        "Plurals",
+        "Active/Passive Voice",
+        "Direct/Indirect Speech",
+        "Spellings",
+        "One Word Substitution",
+        "Idioms"
+    ],
+
+    "General Knowledge": [
+        "Pakistan",
+        "World",
+        "Geography",
+        "History",
+        "Organizations",
+        "Current Affairs"
+    ],
+
+    "Pak Study": [
+        "Pakistan Movement",
+        "History of Pakistan",
+        "Constitution",
+        "Important Personalities",
+        "Geography of Pakistan"
+    ],
+
+    "Islamiat": [
+        "Quran",
+        "Hadith",
+        "Seerat-un-Nabi",
+        "Islamic History",
+        "Islamic Battles",
+        "Pillars of Islam"
+    ],
+
+    "General Science": [
+        "Biology",
+        "Physics",
+        "Chemistry",
+        "Everyday Science",
+        "Human Body"
+    ],
+
+    "Computer": [
+        "Computer Fundamentals",
+        "Hardware",
+        "Software",
+        "MS Office",
+        "Internet",
+        "Operating System"
+    ]
+
+};
+
+
+/* ============================================================
+   MCQs
+   ============================================================
+
+   IMPORTANT:
+
+   Future mein naye MCQs YAHAN add honge.
+
+   Har MCQ mein:
+   subject
+   topic
+   question
+   options
+   answer
+   explanation
+
+   answer:
+   0 = first option
+   1 = second option
+   2 = third option
+   3 = fourth option
+
+   ============================================================ */
 
 const questions = [
 
+    /* ---------- ENGLISH / SYNONYMS ---------- */
+
     {
-        question: "Choose the synonym of 'Abandon'.",
+        subject: "English",
+        topic: "Synonyms",
+
+        question: "Synonym of 'Abandon' is:",
 
         options: [
             "Keep",
@@ -153,11 +502,15 @@ const questions = [
         answer: 1,
 
         explanation:
-        "Abandon means to leave someone or something completely."
+        "Abandon means to leave something or someone completely."
     },
 
+
     {
-        question: "Choose the synonym of 'Accurate'.",
+        subject: "English",
+        topic: "Synonyms",
+
+        question: "Synonym of 'Accurate' is:",
 
         options: [
             "Wrong",
@@ -169,11 +522,15 @@ const questions = [
         answer: 1,
 
         explanation:
-        "Accurate means correct, exact, or free from mistakes."
+        "Accurate means correct or exact."
     },
 
+
     {
-        question: "Choose the synonym of 'Brave'.",
+        subject: "English",
+        topic: "Synonyms",
+
+        question: "Synonym of 'Brave' is:",
 
         options: [
             "Coward",
@@ -185,170 +542,536 @@ const questions = [
         answer: 2,
 
         explanation:
-        "Brave means courageous or having the courage to face danger or difficulty."
+        "Brave means courageous."
+    },
+
+
+    /* ---------- COMPUTER SAMPLE ---------- */
+
+    {
+        subject: "Computer",
+        topic: "Computer Fundamentals",
+
+        question: "Which device is used to enter text into a computer?",
+
+        options: [
+            "Monitor",
+            "Keyboard",
+            "Speaker",
+            "Printer"
+        ],
+
+        answer: 1,
+
+        explanation:
+        "A keyboard is an input device used to enter text and commands."
     }
 
 ];
 
 
+/* ============================================================
+   QUIZ VARIABLES
+   ============================================================ */
+
+let quizQuestions = [];
+
 let currentQuestion = 0;
-let score = 0;
+
+let userScore = 0;
+
 let answered = false;
 
+let timerInterval;
 
-const questionElement =
-    document.getElementById("question");
-
-const optionsElement =
-    document.getElementById("options");
-
-const questionNumberElement =
-    document.getElementById("question-number");
-
-const scoreElement =
-    document.getElementById("score");
-
-const explanationButton =
-    document.getElementById("explanation-btn");
-
-const explanationElement =
-    document.getElementById("explanation");
-
-const nextButton =
-    document.getElementById("next-btn");
+let timeRemaining = 0;
 
 
-function showQuestion() {
+/* ============================================================
+   LOAD TOPICS
+   ============================================================ */
 
-    answered = false;
+function loadTopics() {
 
-    const q = questions[currentQuestion];
+    const subject =
+        document.getElementById("subjectSelect").value;
 
-    questionElement.textContent = q.question;
+    const topicSelect =
+        document.getElementById("topicSelect");
 
-    questionNumberElement.textContent =
-        `Question ${currentQuestion + 1}/${questions.length}`;
+    topicSelect.innerHTML =
+        '<option value="">-- Select Topic --</option>';
 
-    optionsElement.innerHTML = "";
+    if (!subject) {
+        return;
+    }
 
-    explanationElement.style.display = "none";
+    topics[subject].forEach(topic => {
 
-    q.options.forEach((option, index) => {
+        const option =
+            document.createElement("option");
 
-        const button =
-            document.createElement("button");
+        option.value = topic;
 
-        button.textContent =
-            `${String.fromCharCode(65 + index)}) ${option}`;
+        option.textContent = topic;
 
-        button.classList.add("option");
-
-        button.addEventListener("click", function() {
-
-            checkAnswer(index, button);
-
-        });
-
-        optionsElement.appendChild(button);
+        topicSelect.appendChild(option);
 
     });
 
 }
 
 
-function checkAnswer(selectedAnswer, selectedButton) {
+/* ============================================================
+   START QUIZ
+   ============================================================ */
 
-    if (answered) return;
+function startQuiz() {
 
-    answered = true;
+    const subject =
+        document.getElementById("subjectSelect").value;
 
-    const correctAnswer =
-        questions[currentQuestion].answer;
+    const topic =
+        document.getElementById("topicSelect").value;
+
+    let count =
+        parseInt(
+            document.getElementById("questionCount").value
+        );
+
+    const minutes =
+        parseInt(
+            document.getElementById("timeLimit").value
+        );
 
 
-    if (selectedAnswer === correctAnswer) {
+    if (!subject) {
 
-        selectedButton.classList.add("correct");
+        alert("Please select a subject.");
 
-        score++;
+        return;
+    }
 
-        scoreElement.textContent =
-            `Score: ${score}`;
+
+    if (!topic) {
+
+        alert("Please select a topic.");
+
+        return;
+    }
+
+
+    /* Filter MCQs according to Subject + Topic */
+
+    quizQuestions =
+        questions.filter(q =>
+            q.subject === subject &&
+            q.topic === topic
+        );
+
+
+    if (quizQuestions.length === 0) {
+
+        alert(
+            "No MCQs available for this topic yet."
+        );
+
+        return;
+    }
+
+
+    /* If topic has fewer questions */
+
+    if (count > quizQuestions.length) {
+
+        count = quizQuestions.length;
 
     }
 
-    else {
 
-        selectedButton.classList.add("wrong");
+    /* Random questions */
 
-        const buttons =
-            document.querySelectorAll(".option");
+    quizQuestions =
+        [...quizQuestions]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, count);
 
-        buttons[correctAnswer]
-            .classList.add("correct");
+
+    currentQuestion = 0;
+
+    userScore = 0;
+
+    timeRemaining = minutes * 60;
+
+
+    document
+        .getElementById("home")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("quiz")
+        .classList.remove("hidden");
+
+
+    document
+        .getElementById("score")
+        .textContent = "0";
+
+
+    startTimer();
+
+    showQuestion();
+
+}
+
+
+/* ============================================================
+   SHOW QUESTION
+   ============================================================ */
+
+function showQuestion() {
+
+    answered = false;
+
+
+    const q =
+        quizQuestions[currentQuestion];
+
+
+    document
+        .getElementById("questionNumber")
+        .textContent =
+        "Question " + (currentQuestion + 1);
+
+
+    document
+        .getElementById("progress")
+        .textContent =
+        (currentQuestion + 1) +
+        "/" +
+        quizQuestions.length;
+
+
+    document
+        .getElementById("question")
+        .textContent =
+        q.question;
+
+
+    const explanation =
+        document.getElementById("explanation");
+
+
+    explanation.style.display = "none";
+
+
+    explanation.textContent =
+        q.explanation ||
+        "No explanation available.";
+
+
+    const options =
+        document.getElementById("options");
+
+
+    options.innerHTML = "";
+
+
+    q.options.forEach((option, index) => {
+
+        const button =
+            document.createElement("button");
+
+
+        button.className = "option";
+
+
+        button.textContent =
+            String.fromCharCode(65 + index) +
+            ". " +
+            option;
+
+
+        button.onclick = function() {
+
+            selectAnswer(index);
+
+        };
+
+
+        options.appendChild(button);
+
+    });
+
+}
+
+
+/* ============================================================
+   SELECT ANSWER
+   ============================================================ */
+
+function selectAnswer(selectedIndex) {
+
+    if (answered) return;
+
+
+    answered = true;
+
+
+    const q =
+        quizQuestions[currentQuestion];
+
+
+    const buttons =
+        document.querySelectorAll(".option");
+
+
+    buttons.forEach((button, index) => {
+
+        button.disabled = true;
+
+
+        if (index === q.answer) {
+
+            button.classList.add("correct");
+
+        }
+
+
+        if (
+            index === selectedIndex &&
+            selectedIndex !== q.answer
+        ) {
+
+            button.classList.add("wrong");
+
+        }
+
+    });
+
+
+    if (selectedIndex === q.answer) {
+
+        userScore++;
+
+
+        document
+            .getElementById("score")
+            .textContent =
+            userScore;
 
     }
 
 }
 
 
-explanationButton.addEventListener("click", function() {
+/* ============================================================
+   EXPLANATION
+   ============================================================ */
 
-    explanationElement.textContent =
-        questions[currentQuestion].explanation;
+function toggleExplanation() {
 
-    if (explanationElement.style.display === "block") {
-
-        explanationElement.style.display = "none";
-
-    }
-
-    else {
-
-        explanationElement.style.display = "block";
-
-    }
-
-});
+    const explanation =
+        document.getElementById("explanation");
 
 
-nextButton.addEventListener("click", function() {
+    if (
+        explanation.style.display === "block"
+    ) {
 
-    if (currentQuestion < questions.length - 1) {
+        explanation.style.display = "none";
 
-        currentQuestion++;
+    } else {
 
-        showQuestion();
+        explanation.style.display = "block";
 
     }
 
-    else {
+}
 
-        questionElement.textContent =
-            `🎉 Test Completed!`;
 
-        optionsElement.innerHTML = "";
+/* ============================================================
+   NEXT QUESTION
+   ============================================================ */
 
-        explanationElement.style.display = "none";
+function nextQuestion() {
 
-        explanationButton.style.display = "none";
+    if (!answered) {
 
-        nextButton.style.display = "none";
+        alert(
+            "Please select an answer first."
+        );
 
-        questionNumberElement.textContent =
-            "Finished";
+        return;
+    }
 
-        scoreElement.textContent =
-            `Final Score: ${score}/${questions.length}`;
+
+    currentQuestion++;
+
+
+    if (
+        currentQuestion >=
+        quizQuestions.length
+    ) {
+
+        finishQuiz();
+
+        return;
 
     }
 
-});
+
+    showQuestion();
+
+}
 
 
-showQuestion();
+/* ============================================================
+   TIMER
+   ============================================================ */
+
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+
+    updateTimer();
+
+
+    timerInterval =
+        setInterval(() => {
+
+            timeRemaining--;
+
+
+            updateTimer();
+
+
+            if (timeRemaining <= 0) {
+
+                clearInterval(timerInterval);
+
+                finishQuiz();
+
+            }
+
+        }, 1000);
+
+}
+
+
+function updateTimer() {
+
+    let minutes =
+        Math.floor(timeRemaining / 60);
+
+
+    let seconds =
+        timeRemaining % 60;
+
+
+    minutes =
+        String(minutes).padStart(2, "0");
+
+
+    seconds =
+        String(seconds).padStart(2, "0");
+
+
+    document
+        .getElementById("timer")
+        .textContent =
+        minutes + ":" + seconds;
+
+}
+
+
+/* ============================================================
+   FINISH QUIZ
+   ============================================================ */
+
+function finishQuiz() {
+
+    clearInterval(timerInterval);
+
+
+    document
+        .getElementById("quiz")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("result")
+        .classList.remove("hidden");
+
+
+    const total =
+        quizQuestions.length;
+
+
+    const percentage =
+        Math.round(
+            (userScore / total) * 100
+        );
+
+
+    document
+        .getElementById("finalScore")
+        .textContent =
+        userScore + " / " + total;
+
+
+    document
+        .getElementById("percentage")
+        .textContent =
+        "Percentage: " +
+        percentage +
+        "%";
+
+
+    let message;
+
+
+    if (percentage >= 80) {
+
+        message =
+            "Excellent! 🔥 Keep it up.";
+
+    } else if (percentage >= 60) {
+
+        message =
+            "Good job! 👍 Keep practicing.";
+
+    } else {
+
+        message =
+            "Keep practicing. 💪 You can improve.";
+
+    }
+
+
+    document
+        .getElementById("resultMessage")
+        .textContent =
+        message;
+
+}
+
+
+/* ============================================================
+   HOME
+   ============================================================ */
+
+function goHome() {
+
+    clearInterval(timerInterval);
+
+    location.reload();
+
+}
 
 </script>
 
 </body>
-  </html>
+    </html>
