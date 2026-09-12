@@ -1,1 +1,4212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCQ Master — Daily Practice</title>
 
+<style>
+/* =========================================================
+   MCQ MASTER - COMPLETE SINGLE FILE
+   ========================================================= */
+
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #172033;
+  --muted: #687386;
+  --border: #e4e8ef;
+  --primary: #315efb;
+  --primary-dark: #244bd0;
+  --success: #16834b;
+  --success-bg: #e8f7ef;
+  --danger: #d83a52;
+  --danger-bg: #fdecef;
+  --warning: #b77900;
+  --warning-bg: #fff5d9;
+  --shadow: 0 8px 30px rgba(20, 35, 70, .08);
+  --radius: 16px;
+}
+
+[data-theme="dark"] {
+  --bg: #10141d;
+  --card: #181e29;
+  --text: #f2f5fa;
+  --muted: #9ba6b8;
+  --border: #2b3444;
+  --primary: #6d8cff;
+  --primary-dark: #5575ed;
+  --success: #39c47a;
+  --success-bg: #153827;
+  --danger: #ff647b;
+  --danger-bg: #3a1820;
+  --warning: #e6b343;
+  --warning-bg: #3a2e12;
+  --shadow: 0 8px 30px rgba(0,0,0,.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: .2s;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+/* ================= HEADER ================= */
+
+.header {
+  height: 68px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.logo span {
+  color: var(--primary);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 12px;
+  font-size: 18px;
+}
+
+/* ================= LAYOUT ================= */
+
+.layout {
+  display: flex;
+  min-height: calc(100vh - 68px);
+}
+
+.sidebar {
+  width: 230px;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 20px 12px;
+  flex-shrink: 0;
+}
+
+.nav-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  padding: 13px 14px;
+  border-radius: 11px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background: rgba(49,94,251,.1);
+  color: var(--primary);
+}
+
+.main {
+  flex: 1;
+  padding: 28px;
+  max-width: 1400px;
+  margin: auto;
+  width: 100%;
+}
+
+/* ================= COMMON ================= */
+
+.page-title {
+  margin: 0 0 6px;
+  font-size: 28px;
+}
+
+.page-subtitle {
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.card-pad {
+  padding: 22px;
+}
+
+.grid {
+  display: grid;
+  gap: 18px;
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.stat {
+  padding: 20px;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 30px;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 11px;
+  padding: 11px 17px;
+  font-weight: 700;
+  transition: .15s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-secondary {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-warning {
+  background: var(--warning);
+  color: white;
+}
+
+.btn-small {
+  padding: 7px 11px;
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 11px 12px;
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+}
+
+textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.badge-blue {
+  background: rgba(49,94,251,.12);
+  color: var(--primary);
+}
+
+.badge-green {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.badge-red {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.badge-yellow {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+/* ================= DASHBOARD ================= */
+
+.quick-start {
+  padding: 26px;
+  margin-bottom: 20px;
+}
+
+.quick-start h2 {
+  margin-top: 0;
+}
+
+.quiz-settings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* ================= QUESTION BANK ================= */
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.question-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.question-row {
+  padding: 17px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--card);
+}
+
+.question-row-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.question-text {
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.question-meta {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* ================= IMPORT ================= */
+
+.import-help {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+.import-help pre {
+  white-space: pre-wrap;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 10px 0 0;
+}
+
+.import-result {
+  margin-top: 15px;
+  padding: 13px;
+  border-radius: 10px;
+  display: none;
+}
+
+/* ================= QUIZ ================= */
+
+.quiz-container {
+  max-width: 850px;
+  margin: auto;
+}
+
+.quiz-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.progress-wrap {
+  height: 8px;
+  background: var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary);
+  width: 0%;
+  transition: width .25s;
+}
+
+.question-card {
+  padding: 26px;
+}
+
+.question-number {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.quiz-question {
+  font-size: 21px;
+  line-height: 1.5;
+  font-weight: 800;
+  margin-bottom: 22px;
+}
+
+.option {
+  width: 100%;
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.option:hover {
+  border-color: var(--primary);
+}
+
+.option.selected {
+  border-color: var(--primary);
+  background: rgba(49,94,251,.1);
+}
+
+.option.correct {
+  border-color: var(--success);
+  background: var(--success-bg);
+}
+
+.option.wrong {
+  border-color: var(--danger);
+  background: var(--danger-bg);
+}
+
+.option-letter {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.answer-input {
+  margin: 10px 0 15px;
+}
+
+.feedback {
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 16px;
+  display: none;
+}
+
+.feedback.correct {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.feedback.wrong {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.explanation {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.quiz-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+/* ================= RESULTS ================= */
+
+.result-card {
+  text-align: center;
+  padding: 35px;
+}
+
+.score-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 10px solid var(--primary);
+  display: grid;
+  place-items: center;
+  margin: 15px auto 22px;
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.result-stat {
+  padding: 16px;
+  background: var(--bg);
+  border-radius: 12px;
+}
+
+.result-stat strong {
+  display: block;
+  font-size: 23px;
+}
+
+/* ================= MODAL ================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-box {
+  background: var(--card);
+  color: var(--text);
+  width: min(700px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 18px;
+  padding: 24px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* ================= EMPTY ================= */
+
+.empty {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--muted);
+}
+
+/* ================= MOBILE ================= */
+
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 950px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .quiz-settings {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .header {
+    padding: 0 15px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .main {
+    padding: 18px 14px 80px;
+  }
+
+  .grid-4,
+  .grid-3,
+  .grid-2,
+  .quiz-settings {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 80;
+  }
+
+  .mobile-nav button {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    padding: 13px 4px;
+    font-size: 11px;
+  }
+
+  .mobile-nav button.active {
+    color: var(--primary);
+  }
+
+  .page-title {
+    font-size: 23px;
+  }
+
+  .question-card {
+    padding: 19px;
+  }
+
+  .quiz-question {
+    font-size: 18px;
+  }
+
+  .result-stats {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+  <div class="logo">MCQ <span>Master</span></div>
+
+  <div class="header-right">
+    <button class="icon-btn" id="themeBtn" title="Toggle theme">🌙</button>
+  </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+  <button class="nav-item active" data-page="dashboard">
+    🏠 Dashboard
+  </button>
+
+  <button class="nav-item" data-page="quiz">
+    🎯 Daily Quiz
+  </button>
+
+  <button class="nav-item" data-page="bank">
+    📚 Question Bank
+  </button>
+
+  <button class="nav-item" data-page="import">
+    📥 Bulk Import
+  </button>
+
+  <button class="nav-item" data-page="manage">
+    ⚙️ Manage Data
+  </button>
+
+</aside>
+
+<main class="main" id="app"></main>
+
+</div>
+
+<nav class="mobile-nav">
+  <button data-page="dashboard">🏠<br>Home</button>
+  <button data-page="quiz">🎯<br>Quiz</button>
+  <button data-page="bank">📚<br>Bank</button>
+  <button data-page="import">📥<br>Import</button>
+</nav>
+
+</div>
+
+
+<!-- =========================================================
+     QUESTION MODAL
+========================================================= -->
+
+<div class="modal" id="questionModal">
+
+<div class="modal-box">
+
+  <div class="modal-header">
+    <h2 id="modalTitle">Add Question</h2>
+    <button class="icon-btn" onclick="closeModal()">✕</button>
+  </div>
+
+  <input type="hidden" id="editId">
+
+  <div class="form-group">
+    <label>Question</label>
+    <textarea id="qText" placeholder="Enter your question..."></textarea>
+  </div>
+
+  <div class="grid grid-2">
+
+    <div class="form-group">
+      <label>Subject</label>
+      <input id="qSubject" placeholder="e.g. Pakistan Studies">
+    </div>
+
+    <div class="form-group">
+      <label>Difficulty</label>
+      <select id="qDifficulty">
+        <option>Easy</option>
+        <option>Medium</option>
+        <option>Hard</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label>Options</label>
+
+    <input id="optA" placeholder="Option A" style="margin-bottom:8px">
+    <input id="optB" placeholder="Option B" style="margin-bottom:8px">
+    <input id="optC" placeholder="Option C" style="margin-bottom:8px">
+    <input id="optD" placeholder="Option D">
+  </div>
+
+  <div class="form-group">
+    <label>Correct Answer</label>
+    <input id="qAnswer" placeholder="For MCQ: A/B/C/D or answer text">
+  </div>
+
+  <div class="form-group">
+    <label>Explanation (optional)</label>
+    <textarea id="qExplanation" placeholder="Short explanation..."></textarea>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="saveQuestionFromModal()">
+      Save Question
+    </button>
+
+    <button class="btn btn-secondary" onclick="closeModal()">
+      Cancel
+    </button>
+  </div>
+
+</div>
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+const STORAGE_KEY = "mcq_master_v1";
+
+let DATA = {
+  theme: "light",
+  questions: [],
+  quizHistory: [],
+  todayQuiz: null
+};
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+function escapeHTML(str) {
+  return String(str ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function todayKey() {
+  const d = new Date();
+
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
+}
+
+function normalizeAnswer(answer) {
+  return String(answer ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/^[a-d][\)\.\-:\s]+/i, "")
+    .replace(/\s+/g, " ");
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+
+  return a;
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+}
+
+function loadData() {
+
+  try {
+
+    const raw = localStorage.getItem(STORAGE_KEY);
+
+    if (!raw) return false;
+
+    const parsed = JSON.parse(raw);
+
+    DATA = {
+      ...DATA,
+      ...parsed
+    };
+
+    if (!Array.isArray(DATA.questions)) {
+      DATA.questions = [];
+    }
+
+    if (!Array.isArray(DATA.quizHistory)) {
+      DATA.quizHistory = [];
+    }
+
+    return true;
+
+  } catch (e) {
+
+    console.error(e);
+    return false;
+
+  }
+}
+
+
+/* =========================================================
+   SAMPLE QUESTIONS
+========================================================= */
+
+function seedData() {
+
+  const samples = [
+
+    {
+      question: "Bogra Formula was presented in which year?",
+      options: ["1951", "1952", "1953", "1954"],
+      answer: "1953",
+      subject: "Pakistan Studies",
+      difficulty: "Easy",
+      explanation: ""
+    },
+
+    {
+      question: "Who assisted Quaid-e-Azam in preparing the 14 Points?",
+      options: [
+        "Muhammad Ali Jauhar",
+        "Allama Iqbal",
+        "Liaquat Ali Khan",
+        "Sir Syed Ahmad Khan"
+      ],
+      answer: "Muhammad Ali Jauhar",
+      subject: "Pakistan Studies",
+      difficulty: "Medium",
+      explanation: ""
+    },
+
+    {
+      question: "The Diarchy system was introduced in the Indian Subcontinent in which year?",
+      options: ["1909", "1919", "1929", "1935"],
+      answer: "1919",
+      subject: "Pakistan Studies",
+      difficulty: "Easy",
+      explanation: ""
+    },
+
+    {
+      question: "Sir Syed Ahmad Khan became a member of the Legislative Council in:",
+      options: ["1876", "1877", "1878", "1880"],
+      answer: "1878",
+      subject: "Pakistan Studies",
+      difficulty: "Medium",
+      explanation: ""
+    },
+
+    {
+      question: "Pakistan became independent in which year?",
+      options: [],
+      answer: "1947",
+      subject: "Pakistan Studies",
+      difficulty: "Easy",
+      explanation: ""
+    }
+
+  ];
+
+  return {
+    theme: "light",
+    questions: samples.map(q => ({
+      ...q,
+      id: uid(),
+      createdAt: Date.now()
+    })),
+    quizHistory: [],
+    todayQuiz: null
+  };
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function navigate(page) {
+
+  document.querySelectorAll(".nav-item").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.page === page);
+  });
+
+  document.querySelectorAll(".mobile-nav button").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.page === page);
+  });
+
+  if (page === "dashboard") renderDashboard();
+  if (page === "quiz") startQuizPage();
+  if (page === "bank") renderBank();
+  if (page === "import") renderImport();
+  if (page === "manage") renderManage();
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function renderDashboard() {
+
+  const total = DATA.questions.length;
+
+  const subjects = new Set(
+    DATA.questions.map(q => q.subject || "General")
+  ).size;
+
+  const history = DATA.quizHistory || [];
+
+  const avg = history.length
+    ? Math.round(
+        history.reduce((sum, x) => sum + x.percentage, 0) /
+        history.length
+      )
+    : 0;
+
+  document.getElementById("app").innerHTML = `
+
+    <h1 class="page-title">Dashboard</h1>
+
+    <p class="page-subtitle">
+      Practice smarter with your personal MCQ question bank.
+    </p>
+
+    <div class="card quick-start">
+
+      <h2>🎯 Start Today's Practice</h2>
+
+      <p style="color:var(--muted)">
+        Create a new quiz from your question bank.
+        The quiz can contain questions with options and questions without options.
+      </p>
+
+      <div class="quiz-settings">
+
+        <div>
+          <label>Subject</label>
+
+          <select id="dashSubject">
+            <option value="all">All Subjects</option>
+            ${getSubjectOptions()}
+          </select>
+        </div>
+
+        <div>
+          <label>Difficulty</label>
+
+          <select id="dashDifficulty">
+            <option value="all">All Levels</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Questions</label>
+
+          <select id="dashCount">
+            <option value="100">100 Questions</option>
+            <option value="50">50 Questions</option>
+            <option value="30">30 Questions</option>
+            <option value="20">20 Questions</option>
+            <option value="10">10 Questions</option>
+          </select>
+        </div>
+
+        <div style="display:flex;align-items:end">
+
+          <button
+            class="btn btn-primary"
+            style="width:100%"
+            onclick="createQuizFromDashboard()">
+            Start Quiz
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="grid grid-4">
+
+      <div class="card stat">
+        <div class="stat-label">TOTAL QUESTIONS</div>
+        <div class="stat-value">${total}</div>
+      </div>
+
+      <div class="card stat">
+        <div class="stat-label">SUBJECTS</div>
+        <div class="stat-value">${subjects}</div>
+      </div>
+
+      <div class="card stat">
+        <div class="stat-label">QUIZZES COMPLETED</div>
+        <div class="stat-value">${history.length}</div>
+      </div>
+
+      <div class="card stat">
+        <div class="stat-label">AVERAGE SCORE</div>
+        <div class="stat-value">${avg}%</div>
+      </div>
+
+    </div>
+
+
+    <div style="margin-top:20px" class="card card-pad"
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCQ Master — Daily Practice</title>
+
+<style>
+/* =========================================================
+   MCQ MASTER - COMPLETE SINGLE FILE
+   ========================================================= */
+
+:root {
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #172033;
+  --muted: #687386;
+  --border: #e4e8ef;
+  --primary: #315efb;
+  --primary-dark: #244bd0;
+  --success: #16834b;
+  --success-bg: #e8f7ef;
+  --danger: #d83a52;
+  --danger-bg: #fdecef;
+  --warning: #b77900;
+  --warning-bg: #fff5d9;
+  --shadow: 0 8px 30px rgba(20, 35, 70, .08);
+  --radius: 16px;
+}
+
+[data-theme="dark"] {
+  --bg: #10141d;
+  --card: #181e29;
+  --text: #f2f5fa;
+  --muted: #9ba6b8;
+  --border: #2b3444;
+  --primary: #6d8cff;
+  --primary-dark: #5575ed;
+  --success: #39c47a;
+  --success-bg: #153827;
+  --danger: #ff647b;
+  --danger-bg: #3a1820;
+  --warning: #e6b343;
+  --warning-bg: #3a2e12;
+  --shadow: 0 8px 30px rgba(0,0,0,.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: .2s;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+/* ================= HEADER ================= */
+
+.header {
+  height: 68px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.logo span {
+  color: var(--primary);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 12px;
+  font-size: 18px;
+}
+
+/* ================= LAYOUT ================= */
+
+.layout {
+  display: flex;
+  min-height: calc(100vh - 68px);
+}
+
+.sidebar {
+  width: 230px;
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 20px 12px;
+  flex-shrink: 0;
+}
+
+.nav-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  padding: 13px 14px;
+  border-radius: 11px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background: rgba(49,94,251,.1);
+  color: var(--primary);
+}
+
+.main {
+  flex: 1;
+  padding: 28px;
+  max-width: 1400px;
+  margin: auto;
+  width: 100%;
+}
+
+/* ================= COMMON ================= */
+
+.page-title {
+  margin: 0 0 6px;
+  font-size: 28px;
+}
+
+.page-subtitle {
+  color: var(--muted);
+  margin: 0 0 24px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.card-pad {
+  padding: 22px;
+}
+
+.grid {
+  display: grid;
+  gap: 18px;
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.stat {
+  padding: 20px;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stat-value {
+  font-size: 30px;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 11px;
+  padding: 11px 17px;
+  font-weight: 700;
+  transition: .15s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-secondary {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-warning {
+  background: var(--warning);
+  color: white;
+}
+
+.btn-small {
+  padding: 7px 11px;
+  font-size: 12px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 11px 12px;
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary);
+}
+
+textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.badge-blue {
+  background: rgba(49,94,251,.12);
+  color: var(--primary);
+}
+
+.badge-green {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.badge-red {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.badge-yellow {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+/* ================= DASHBOARD ================= */
+
+.quick-start {
+  padding: 26px;
+  margin-bottom: 20px;
+}
+
+.quick-start h2 {
+  margin-top: 0;
+}
+
+.quiz-settings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* ================= QUESTION BANK ================= */
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.question-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.question-row {
+  padding: 17px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--card);
+}
+
+.question-row-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.question-text {
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.question-meta {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* ================= IMPORT ================= */
+
+.import-help {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+.import-help pre {
+  white-space: pre-wrap;
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 10px 0 0;
+}
+
+.import-result {
+  margin-top: 15px;
+  padding: 13px;
+  border-radius: 10px;
+  display: none;
+}
+
+/* ================= QUIZ ================= */
+
+.quiz-container {
+  max-width: 850px;
+  margin: auto;
+}
+
+.quiz-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.progress-wrap {
+  height: 8px;
+  background: var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary);
+  width: 0%;
+  transition: width .25s;
+}
+
+.question-card {
+  padding: 26px;
+}
+
+.question-number {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.quiz-question {
+  font-size: 21px;
+  line-height: 1.5;
+  font-weight: 800;
+  margin-bottom: 22px;
+}
+
+.option {
+  width: 100%;
+  text-align: left;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.option:hover {
+  border-color: var(--primary);
+}
+
+.option.selected {
+  border-color: var(--primary);
+  background: rgba(49,94,251,.1);
+}
+
+.option.correct {
+  border-color: var(--success);
+  background: var(--success-bg);
+}
+
+.option.wrong {
+  border-color: var(--danger);
+  background: var(--danger-bg);
+}
+
+.option-letter {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.answer-input {
+  margin: 10px 0 15px;
+}
+
+.feedback {
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 16px;
+  display: none;
+}
+
+.feedback.correct {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.feedback.wrong {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.explanation {
+  margin-top: 8px;
+  color: var(--muted);
+}
+
+.quiz-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+/* ================= RESULTS ================= */
+
+.result-card {
+  text-align: center;
+  padding: 35px;
+}
+
+.score-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 10px solid var(--primary);
+  display: grid;
+  place-items: center;
+  margin: 15px auto 22px;
+  font-size: 27px;
+  font-weight: 900;
+}
+
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.result-stat {
+  padding: 16px;
+  background: var(--bg);
+  border-radius: 12px;
+}
+
+.result-stat strong {
+  display: block;
+  font-size: 23px;
+}
+
+/* ================= MODAL ================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-box {
+  background: var(--card);
+  color: var(--text);
+  width: min(700px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 18px;
+  padding: 24px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* ================= EMPTY ================= */
+
+.empty {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--muted);
+}
+
+/* ================= MOBILE ================= */
+
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 950px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .quiz-settings {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .header {
+    padding: 0 15px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .main {
+    padding: 18px 14px 80px;
+  }
+
+  .grid-4,
+  .grid-3,
+  .grid-2,
+  .quiz-settings {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    display: flex;
+    z-index: 80;
+  }
+
+  .mobile-nav button {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    padding: 13px 4px;
+    font-size: 11px;
+  }
+
+  .mobile-nav button.active {
+    color: var(--primary);
+  }
+
+  .page-title {
+    font-size: 23px;
+  }
+
+  .question-card {
+    padding: 19px;
+  }
+
+  .quiz-question {
+    font-size: 18px;
+  }
+
+  .result-stats {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+  <div class="logo">MCQ <span>Master</span></div>
+
+  <div class="header-right">
+    <button class="icon-btn" id="themeBtn" title="Toggle theme">🌙</button>
+  </div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+
+  <button class="nav-item active" data-page="dashboard">
+    🏠 Dashboard
+  </button>
+
+  <button class="nav-item" data-page="quiz">
+    🎯 Daily Quiz
+  </button>
+
+  <button class="nav-item" data-page="bank">
+    📚 Question Bank
+  </button>
+
+  <button class="nav-item" data-page="import">
+    📥 Bulk Import
+  </button>
+
+  <button class="nav-item" data-page="manage">
+    ⚙️ Manage Data
+  </button>
+
+</aside>
+
+<main class="main" id="app"></main>
+
+</div>
+
+<nav class="mobile-nav">
+  <button data-page="dashboard">🏠<br>Home</button>
+  <button data-page="quiz">🎯<br>Quiz</button>
+  <button data-page="bank">📚<br>Bank</button>
+  <button data-page="import">📥<br>Import</button>
+</nav>
+
+</div>
+
+
+<!-- =========================================================
+     QUESTION MODAL
+========================================================= -->
+
+<div class="modal" id="questionModal">
+
+<div class="modal-box">
+
+  <div class="modal-header">
+    <h2 id="modalTitle">Add Question</h2>
+    <button class="icon-btn" onclick="closeModal()">✕</button>
+  </div>
+
+  <input type="hidden" id="editId">
+
+  <div class="form-group">
+    <label>Question</label>
+    <textarea id="qText" placeholder="Enter your question..."></textarea>
+  </div>
+
+  <div class="grid grid-2">
+
+    <div class="form-group">
+      <label>Subject</label>
+      <input id="qSubject" placeholder="e.g. Pakistan Studies">
+    </div>
+
+    <div class="form-group">
+      <label>Difficulty</label>
+      <select id="qDifficulty">
+        <option>Easy</option>
+        <option>Medium</option>
+        <option>Hard</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label>Options</label>
+
+    <input id="optA" placeholder="Option A" style="margin-bottom:8px">
+    <input id="optB" placeholder="Option B" style="margin-bottom:8px">
+    <input id="optC" placeholder="Option C" style="margin-bottom:8px">
+    <input id="optD" placeholder="Option D">
+  </div>
+
+  <div class="form-group">
+    <label>Correct Answer</label>
+    <input id="qAnswer" placeholder="For MCQ: A/B/C/D or answer text">
+  </div>
+
+  <div class="form-group">
+    <label>Explanation (optional)</label>
+    <textarea id="qExplanation" placeholder="Short explanation..."></textarea>
+  </div>
+
+  <div class="actions">
+    <button class="btn btn-primary" onclick="saveQuestionFromModal()">
+      Save Question
+    </button>
+
+    <button class="btn btn-secondary" onclick="closeModal()">
+      Cancel
+    </button>
+  </div>
+
+</div>
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+const STORAGE_KEY = "mcq_master_v1";
+
+let DATA = {
+  theme: "light",
+  questions: [],
+  quizHistory: [],
+  todayQuiz: null
+};
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function uid() {
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+function escapeHTML(str) {
+  return String(str ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function todayKey() {
+  const d = new Date();
+
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
+}
+
+function normalizeAnswer(answer) {
+  return String(answer ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/^[a-d][\)\.\-:\s]+/i, "")
+    .replace(/\s+/g, " ");
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+
+  return a;
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+}
+
+function loadData() {
+
+  try {
+
+    const raw = localStorage.getItem(STORAGE_KEY);
+
+    if (!raw) return false;
+
+    const parsed = JSON.parse(raw);
+
+    DATA = {
+      ...DATA,
+      ...parsed
+    };
+
+    if (!Array.isArray(DATA.questions)) {
+      DATA.questions = [];
+    }
+
+    if (!Array.isArray(DATA.quizHistory)) {
+      DATA.quizHistory = [];
+    }
+
+    return true;
+
+  } catch (e) {
+
+    console.error(e);
+    return false;
+
+  }
+}
+
+
+/* =========================================================
+   SAMPLE QUESTIONS
+========================================================= */
+
+function seedData() {
+
+  const samples = [
+
+    {
+      question: "Bogra Formula was presented in which year?",
+      options: ["1951", "1952", "1953", "1954"],
+      answer: "1953",
+      subject: "Pakistan Studies",
+      difficulty: "Easy",
+      explanation: ""
+    },
+
+    {
+      question: "Who assisted Quaid-e-Azam in preparing the 14 Points?",
+      options: [
+        "Muhammad Ali Jauhar",
+        "Allama Iqbal",
+        "Liaquat Ali Khan",
+        "Sir Syed Ahmad Khan"
+      ],
+      answer: "Muhammad Ali Jauhar",
+      subject: "Pakistan Studies",
+      difficulty: "Medium",
+      explanation: ""
+    },
+
+    {
+      question: "The Diarchy system was introduced in the Indian Subcontinent in which year?",
+      options: ["1909", "1919", "1929", "1935"],
+      answer: "1919",
+      subject: "Pakistan Studies",
+      difficulty: "Easy",
+      explanation: ""
+    },
+
+    {
+      question: "Sir Syed Ahmad Khan became a member of the Legislative Council in:",
+      options: ["1876", "1877", "1878", "1880"],
+      answer: "1878",
+      subject: "Pakistan Studies",
+      difficulty: "Medium",
+      explanation: ""
+    },
+
+    {
+      question: "Pakistan became independent in which year?",
+      options: [],
+      answer: "1947",
+      subject: "Pakistan Studies",
+      difficulty: "Easy",
+      explanation: ""
+    }
+
+  ];
+
+  return {
+    theme: "light",
+    questions: samples.map(q => ({
+      ...q,
+      id: uid(),
+      createdAt: Date.now()
+    })),
+    quizHistory: [],
+    todayQuiz: null
+  };
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function navigate(page) {
+
+  document.querySelectorAll(".nav-item").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.page === page);
+  });
+
+  document.querySelectorAll(".mobile-nav button").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.page === page);
+  });
+
+  if (page === "dashboard") renderDashboard();
+  if (page === "quiz") startQuizPage();
+  if (page === "bank") renderBank();
+  if (page === "import") renderImport();
+  if (page === "manage") renderManage();
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function renderDashboard() {
+
+  const total = DATA.questions.length;
+
+  const subjects = new Set(
+    DATA.questions.map(q => q.subject || "General")
+  ).size;
+
+  const history = DATA.quizHistory || [];
+
+  const avg = history.length
+    ? Math.round(
+        history.reduce((sum, x) => sum + x.percentage, 0) /
+        history.length
+      )
+    : 0;
+
+  document.getElementById("app").innerHTML = `
+
+    <h1 class="page-title">Dashboard</h1>
+
+    <p class="page-subtitle">
+      Practice smarter with your personal MCQ question bank.
+    </p>
+
+    <div class="card quick-start">
+
+      <h2>🎯 Start Today's Practice</h2>
+
+      <p style="color:var(--muted)">
+        Create a new quiz from your question bank.
+        The quiz can contain questions with options and questions without options.
+      </p>
+
+      <div class="quiz-settings">
+
+        <div>
+          <label>Subject</label>
+
+          <select id="dashSubject">
+            <option value="all">All Subjects</option>
+            ${getSubjectOptions()}
+          </select>
+        </div>
+
+        <div>
+          <label>Difficulty</label>
+
+          <select id="dashDifficulty">
+            <option value="all">All Levels</option>
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Questions</label>
+
+          <select id="dashCount">
+            <option value="100">100 Questions</option>
+            <option value="50">50 Questions</option>
+            <option value="30">30 Questions</option>
+            <option value="20">20 Questions</option>
+            <option value="10">10 Questions</option>
+          </select>
+        </div>
+
+        <div style="display:flex;align-items:end">
+
+          <button
+            class="btn btn-primary"
+            style="width:100%"
+            onclick="createQuizFromDashboard()">
+            Start Quiz
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="grid grid-4">
+
+      <div class="card stat">
+        <div class="stat-label">TOTAL QUESTIONS</div>
+        <div class="stat-value">${total}</div>
+      </div>
+
+      <div class="card stat">
+        <div class="stat-label">SUBJECTS</div>
+        <div class="stat-value">${subjects}</div>
+      </div>
+
+      <div class="card stat">
+        <div class="stat-label">QUIZZES COMPLETED</div>
+        <div class="stat-value">${history.length}</div>
+      </div>
+
+      <div class="card stat">
+        <div class="stat-label">AVERAGE SCORE</div>
+        <div class="stat-value">${avg}%</div>
+      </div>
+
+    </div>
+
+
+    <div style="margin-top:20px" class="card card-pad">
+
+      <h3>⚡ Quick Actions</h3>
+
+      <div class="actions">
+
+        <button class="btn btn-primary"
+          onclick="navigate('import')">
+          📥 Bulk Import MCQs
+        </button>
+
+        <button class="btn btn-secondary"
+          onclick="openAddQuestion()">
+          ➕ Add Question
+        </button>
+
+        <button class="btn btn-secondary"
+          onclick="navigate('bank')">
+          📚 Open Question Bank
+        </button>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+function getSubjectOptions() {
+
+  const subjects = [
+    ...new Set(
+      DATA.questions
+        .map(q => q.subject)
+        .filter(Boolean)
+    )
+  ].sort();
+
+  return subjects
+    .map(s => `<option value="${escapeHTML(s)}">${escapeHTML(s)}</option>`)
+    .join("");
+}
+
+
+function createQuizFromDashboard() {
+
+  const subject = document.getElementById("dashSubject").value;
+  const difficulty = document.getElementById("dashDifficulty").value;
+  const count = Number(document.getElementById("dashCount").value);
+
+  createQuiz({
+    subject,
+    difficulty,
+    count
+  });
+
+}
+
+
+/* =========================================================
+   QUIZ
+========================================================= */
+
+let QUIZ = {
+  questions: [],
+  index: 0,
+  answers: [],
+  checked: false,
+  score: 0,
+  config: {}
+};
+
+
+function startQuizPage() {
+
+  if (QUIZ.questions.length && QUIZ.index < QUIZ.questions.length) {
+    renderQuizQuestion();
+    return;
+  }
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="quiz-container">
+
+      <h1 class="page-title">Daily Quiz</h1>
+
+      <p class="page-subtitle">
+        Select your settings and start practicing.
+      </p>
+
+      <div class="card card-pad">
+
+        <div class="grid grid-2">
+
+          <div class="form-group">
+
+            <label>Subject</label>
+
+            <select id="quizSubject">
+
+              <option value="all">All Subjects</option>
+
+              ${getSubjectOptions()}
+
+            </select>
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Difficulty</label>
+
+            <select id="quizDifficulty">
+
+              <option value="all">All Levels</option>
+              <option>Easy</option>
+              <option>Medium</option>
+              <option>Hard</option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Number of Questions</label>
+
+          <select id="quizCount">
+
+            <option value="100">100</option>
+            <option value="50">50</option>
+            <option value="30">30</option>
+            <option value="20">20</option>
+            <option value="10">10</option>
+
+          </select>
+
+        </div>
+
+        <button
+          class="btn btn-primary"
+          onclick="createQuizFromQuizPage()">
+          🚀 Start Practice
+        </button>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+function createQuizFromQuizPage() {
+
+  createQuiz({
+
+    subject: document.getElementById("quizSubject").value,
+
+    difficulty:
+      document.getElementById("quizDifficulty").value,
+
+    count:
+      Number(document.getElementById("quizCount").value)
+
+  });
+
+}
+
+
+function createQuiz(config) {
+
+  let pool = [...DATA.questions];
+
+  if (config.subject !== "all") {
+
+    pool = pool.filter(
+      q => (q.subject || "General") === config.subject
+    );
+
+  }
+
+  if (config.difficulty !== "all") {
+
+    pool = pool.filter(
+      q => q.difficulty === config.difficulty
+    );
+
+  }
+
+  if (!pool.length) {
+
+    alert("No questions match your selected filters.");
+    return;
+
+  }
+
+  const selected = shuffle(pool).slice(
+    0,
+    Math.min(config.count, pool.length)
+  );
+
+  QUIZ = {
+
+    questions: selected,
+
+    index: 0,
+
+    answers: new Array(selected.length).fill(null),
+
+    checked: false,
+
+    score: 0,
+
+    config
+
+  };
+
+  renderQuizQuestion();
+
+}
+
+
+function renderQuizQuestion() {
+
+  const q = QUIZ.questions[QUIZ.index];
+
+  if (!q) {
+
+    showQuizResult();
+    return;
+
+  }
+
+  const total = QUIZ.questions.length;
+
+  const progress =
+    ((QUIZ.index) / total) * 100;
+
+  let optionsHTML = "";
+
+  const hasOptions =
+    Array.isArray(q.options) &&
+    q.options.filter(Boolean).length > 0;
+
+  if (hasOptions) {
+
+    const letters = ["A","B","C","D"];
+
+    optionsHTML = q.options
+      .filter(Boolean)
+      .map((option, i) => {
+
+        let cls = "";
+
+        if (QUIZ.checked) {
+
+          if (
+            normalizeAnswer(option) ===
+            normalizeAnswer(q.answer)
+          ) {
+
+            cls = "correct";
+
+          } else if (
+            QUIZ.answers[QUIZ.index] === option
+          ) {
+
+            cls = "wrong";
+
+          }
+
+        }
+
+        if (
+          !QUIZ.checked &&
+          QUIZ.answers[QUIZ.index] === option
+        ) {
+
+          cls += " selected";
+
+        }
+
+        return `
+
+          <button
+            class="option ${cls}"
+            ${QUIZ.checked ? "disabled" : ""}
+            onclick="selectOption(${i})">
+
+            <span class="option-letter">
+              ${letters[i]}
+            </span>
+
+            <span>${escapeHTML(option)}</span>
+
+          </button>
+
+        `;
+
+      })
+      .join("");
+
+  } else {
+
+    const current =
+      QUIZ.answers[QUIZ.index] || "";
+
+    optionsHTML = `
+
+      <div class="answer-input">
+
+        <label>Your Answer</label>
+
+        <input
+          id="textAnswer"
+          value="${escapeHTML(current)}"
+          ${QUIZ.checked ? "disabled" : ""}
+          placeholder="Type your answer here..."
+          onkeydown="if(event.key==='Enter') checkAnswer()">
+
+      </div>
+
+    `;
+
+  }
+
+  let feedbackHTML = "";
+
+  if (QUIZ.checked) {
+
+    const userAnswer =
+      QUIZ.answers[QUIZ.index];
+
+    const correct =
+      normalizeAnswer(userAnswer) ===
+      normalizeAnswer(q.answer);
+
+    feedbackHTML = `
+
+      <div class="feedback ${correct ? "correct" : "wrong"}"
+           style="display:block">
+
+        <strong>
+          ${correct ? "✓ Correct!" : "✗ Incorrect"}
+        </strong>
+
+        ${
+          correct
+          ? ""
+          : `<div style="margin-top:5px">
+               Correct answer:
+               <strong>${escapeHTML(q.answer)}</strong>
+             </div>`
+        }
+
+        ${
+          q.explanation
+          ? `<div class="explanation">
+               ${escapeHTML(q.explanation)}
+             </div>`
+          : ""
+        }
+
+      </div>
+
+    `;
+
+  }
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="quiz-container">
+
+      <div class="quiz-top">
+
+        <div>
+
+          <strong>
+            Question ${QUIZ.index + 1}
+            / ${total}
+          </strong>
+
+        </div>
+
+        <span class="badge badge-blue">
+          ${escapeHTML(q.subject || "General")}
+        </span>
+
+      </div>
+
+      <div class="progress-wrap">
+
+        <div
+          class="progress-bar"
+          style="width:${progress}%">
+        </div>
+
+      </div>
+
+      <div class="card question-card">
+
+        <div class="question-number">
+          QUESTION ${QUIZ.index + 1}
+        </div>
+
+        <div class="quiz-question">
+          ${escapeHTML(q.question)}
+        </div>
+
+        ${optionsHTML}
+
+        ${feedbackHTML}
+
+        <div class="quiz-actions">
+
+          <button
+            class="btn btn-secondary"
+            onclick="quitQuiz()">
+            Exit
+          </button>
+
+          ${
+            QUIZ.checked
+
+            ? `
+
+              <button
+                class="btn btn-primary"
+                onclick="nextQuizQuestion()">
+
+                ${
+                  QUIZ.index === total - 1
+                  ? "Finish Quiz"
+                  : "Next Question →"
+                }
+
+              </button>
+
+            `
+
+            : `
+
+              <button
+                class="btn btn-primary"
+                onclick="checkAnswer()">
+
+                Check Answer
+
+              </button>
+
+            `
+          }
+
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+function selectOption(index) {
+
+  if (QUIZ.checked) return;
+
+  const q = QUIZ.questions[QUIZ.index];
+
+  const options =
+    q.options.filter(Boolean);
+
+  QUIZ.answers[QUIZ.index] =
+    options[index];
+
+  renderQuizQuestion();
+
+}
+
+
+function checkAnswer() {
+
+  if (QUIZ.checked) return;
+
+  const q = QUIZ.questions[QUIZ.index];
+
+  const hasOptions =
+    Array.isArray(q.options) &&
+    q.options.filter(Boolean).length > 0;
+
+  if (!hasOptions) {
+
+    const input =
+      document.getElementById("textAnswer");
+
+    if (!input) return;
+
+    QUIZ.answers[QUIZ.index] =
+      input.value.trim();
+
+  }
+
+  if (!QUIZ.answers[QUIZ.index]) {
+
+    alert("Please select or enter an answer.");
+    return;
+
+  }
+
+  const isCorrect =
+    normalizeAnswer(QUIZ.answers[QUIZ.index]) ===
+    normalizeAnswer(q.answer);
+
+  if (isCorrect) {
+
+    QUIZ.score++;
+
+  }
+
+  QUIZ.checked = true;
+
+  renderQuizQuestion();
+
+}
+
+
+function nextQuizQuestion() {
+
+  QUIZ.index++;
+
+  QUIZ.checked = false;
+
+  if (QUIZ.index >= QUIZ.questions.length) {
+
+    showQuizResult();
+
+  } else {
+
+    renderQuizQuestion();
+
+  }
+
+}
+
+
+function quitQuiz() {
+
+  if (
+    confirm("Exit this quiz? Your current quiz progress will be lost.")
+  ) {
+
+    QUIZ = {
+      questions: [],
+      index: 0,
+      answers: [],
+      checked: false,
+      score: 0,
+      config: {}
+    };
+
+    navigate("dashboard");
+
+  }
+
+}
+
+
+function showQuizResult() {
+
+  const total = QUIZ.questions.length;
+
+  const score = QUIZ.score;
+
+  const percentage =
+    total
+    ? Math.round((score / total) * 100)
+    : 0;
+
+  DATA.quizHistory.push({
+
+    id: uid(),
+
+    date: new Date().toISOString(),
+
+    score,
+
+    total,
+
+    percentage
+
+  });
+
+  saveData();
+
+  document.getElementById("app").innerHTML = `
+
+    <div class="quiz-container">
+
+      <div class="card result-card">
+
+        <div style="font-size:45px">
+          🎉
+        </div>
+
+        <h1>Quiz Completed!</h1>
+
+        <p style="color:var(--muted)">
+          Great work. Keep practicing every day.
+        </p>
+
+        <div class="score-circle">
+          ${percentage}%
+        </div>
+
+        <div class="result-stats">
+
+          <div class="result-stat">
+            <strong>${score}</strong>
+            Correct
+          </div>
+
+          <div class="result-stat">
+            <strong>${total - score}</strong>
+            Wrong
+          </div>
+
+          <div class="result-stat">
+            <strong>${total}</strong>
+            Total
+          </div>
+
+        </div>
+
+        <div class="actions" style="justify-content:center">
+
+          <button
+            class="btn btn-primary"
+            onclick="startQuizPage()">
+            🔁 New Quiz
+          </button>
+
+          <button
+            class="btn btn-secondary"
+            onclick="navigate('dashboard')">
+            🏠 Dashboard
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  `;
+
+  QUIZ = {
+    questions: [],
+    index: 0,
+    answers: [],
+    checked: false,
+    score: 0,
+    config: {}
+  };
+
+}
+
+
+/* =========================================================
+   QUESTION BANK
+========================================================= */
+
+function renderBank() {
+
+  document.getElementById("app").innerHTML = `
+
+    <h1 class="page-title">Question Bank</h1>
+
+    <p class="page-subtitle">
+      View, search, edit and delete your questions.
+    </p>
+
+    <div class="toolbar">
+
+      <input
+        id="bankSearch"
+        placeholder="🔎 Search questions..."
+        oninput="filterBank()"
+        style="max-width:350px">
+
+      <select
+        id="bankSubject"
+        onchange="filterBank()"
+        style="max-width:200px">
+
+        <option value="all">All Subjects</option>
+
+        ${getSubjectOptions()}
+
+      </select>
+
+      <select
+        id="bankDifficulty"
+        onchange="filterBank()"
+        style="max-width:180px">
+
+        <option value="all">All Levels</option>
+        <option>Easy</option>
+        <option>Medium</option>
+        <option>Hard</option>
+
+      </select>
+
+      <button
+        class="btn btn-primary"
+        onclick="openAddQuestion()">
+
+        + Add Question
+
+      </button>
+
+    </div>
+
+    <div id="bankList"></div>
+
+  `;
+
+  filterBank();
+
+}
+
+
+function filterBank() {
+
+  const search =
+    (document.getElementById("bankSearch")?.value || "")
+      .toLowerCase();
+
+  const subject =
+    document.getElementById("bankSubject")?.value || "all";
+
+  const difficulty =
+    document.getElementById("bankDifficulty")?.value || "all";
+
+  let questions =
+    DATA.questions.filter(q => {
+
+      const matchesSearch =
+        !search ||
+        q.question.toLowerCase().includes(search);
+
+      const matchesSubject =
+        subject === "all" ||
+        (q.subject || "General") === subject;
+
+      const matchesDifficulty =
+        difficulty === "all" ||
+        q.difficulty === difficulty;
+
+      return (
+        matchesSearch &&
+        matchesSubject &&
+        matchesDifficulty
+      );
+
+    });
+
+  const container =
+    document.getElementById("bankList");
+
+  if (!questions.length) {
+
+    container.innerHTML = `
+
+      <div class="card empty">
+        No questions found.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  container.innerHTML = `
+
+    <div class="question-list">
+
+      ${questions.map((q, i) => `
+
+        <div class="question-row">
+
+          <div class="question-row-top">
+
+            <div class="question-text">
+              ${escapeHTML(q.question)}
+            </div>
+
+            <div class="actions">
+
+              <button
+                class="btn btn-secondary btn-small"
+                onclick="editQuestion('${q.id}')">
+                Edit
+              </button>
+
+              <button
+                class="btn btn-danger btn-small"
+                onclick="deleteQuestion('${q.id}')">
+                Delete
+              </button>
+
+            </div>
+
+          </div>
+
+          <div class="question-meta">
+
+            <span class="badge badge-blue">
+              ${escapeHTML(q.subject || "General")}
+            </span>
+
+            <span class="badge ${
+              q.difficulty === "Easy"
+              ? "badge-green"
+              : q.difficulty === "Hard"
+              ? "badge-red"
+              : "badge-yellow"
+            }">
+
+              ${escapeHTML(q.difficulty || "Medium")}
+
+            </span>
+
+            <span class="badge badge-blue">
+
+              ${
+                q.options?.filter(Boolean).length
+                ? "MCQ"
+                : "No Options"
+              }
+
+            </span>
+
+          </div>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+  `;
+
+}
+
+
+function deleteQuestion(id) {
+
+  const q =
+    DATA.questions.find(x => x.id === id);
+
+  if (!q) return;
+
+  if (
+    !confirm(
+      "Delete this question?\n\n" +
+      q.question
+    )
+  ) return;
+
+  DATA.questions =
+    DATA.questions.filter(x => x.id !== id);
+
+  saveData();
+
+  filterBank();
+
+}
+
+
+/* =========================================================
+   ADD / EDIT QUESTION
+========================================================= */
+
+function openAddQuestion() {
+
+  document.getElementById("modalTitle").textContent =
+    "Add Question";
+
+  document.getElementById("editId").value = "";
+
+  document.getElementById("qText").value = "";
+
+  document.getElementById("qSubject").value =
+    "General";
+
+  document.getElementById("qDifficulty").value =
+    "Easy";
+
+  document.getElementById("optA").value = "";
+  document.getElementById("optB").value = "";
+  document.getElementById("optC").value = "";
+  document.getElementById("optD").value = "";
+
+  document.getElementById("qAnswer").value = "";
+
+  document.getElementById("qExplanation").value = "";
+
+  document.getElementById("questionModal")
+    .classList.add("show");
+
+}
+
+
+function editQuestion(id) {
+
+  const q =
+    DATA.questions.find(x => x.id === id);
+
+  if (!q) return;
+
+  document.getElementById("modalTitle").textContent =
+    "Edit Question";
+
+  document.getElementById("editId").value =
+    q.id;
+
+  document.getElementById("qText").value =
+    q.question;
+
+  document.getElementById("qSubject").value =
+    q.subject || "General";
+
+  document.getElementById("qDifficulty").value =
+    q.difficulty || "Easy";
+
+  const options =
+    Array.isArray(q.options)
+    ? q.options
+    : [];
+
+  document.getElementById("optA").value =
+    options[0] || "";
+
+  document.getElementById("optB").value =
+    options[1] || "";
+
+  document.getElementById("optC").value =
+    options[2] || "";
+
+  document.getElementById("optD").value =
+    options[3] || "";
+
+  document.getElementById("qAnswer").value =
+    q.answer || "";
+
+  document.getElementById("qExplanation").value =
+    q.explanation || "";
+
+  document.getElementById("questionModal")
+    .classList.add("show");
+
+}
+
+
+function closeModal() {
+
+  document.getElementById("questionModal")
+    .classList.remove("show");
+
+}
+
+
+function saveQuestionFromModal() {
+
+  const question =
+    document.getElementById("qText").value.trim();
+
+  const subject =
+    document.getElementById("qSubject").value.trim()
+    || "General";
+
+  const difficulty =
+    document.getElementById("qDifficulty").value;
+
+  const options = [
+
+    document.getElementById("optA").value.trim(),
+
+    document.getElementById("optB").value.trim(),
+
+    document.getElementById("optC").value.trim(),
+
+    document.getElementById("optD").value.trim()
+
+  ].filter(Boolean);
+
+  const answer =
+    document.getElementById("qAnswer").value.trim();
+
+  const explanation =
+    document.getElementById("qExplanation").value.trim();
+
+  if (!question) {
+
+    alert("Please enter a question.");
+    return;
+
+  }
+
+  if (!answer) {
+
+    alert("Please enter the correct answer.");
+    return;
+
+  }
+
+  if (options.length && !options.includes(answer)) {
+
+    const letterMap = {
+      A: options[0],
+      B: options[1],
+      C: options[2],
+      D: options[3]
+    };
+
+    if (letterMap[answer.toUpperCase()]) {
+
+      // Convert A/B/C/D to actual option text
+      document.getElementById("qAnswer").value =
+        letterMap[answer.toUpperCase()];
+
+    }
+
+  }
+
+  const finalAnswer =
+    document.getElementById("qAnswer").value.trim();
+
+  const id =
+    document.getElementById("editId").value;
+
+  if (id) {
+
+    const index =
+      DATA.questions.findIndex(q => q.id === id);
+
+    if (index !== -1) {
+
+      DATA.questions[index] = {
+
+        ...DATA.questions[index],
+
+        question,
+
+        subject,
+
+        difficulty,
+
+        options,
+
+        answer: finalAnswer,
+
+        explanation
+
+      };
+
+    }
+
+  } else {
+
+    DATA.questions.push({
+
+      id: uid(),
+
+      question,
+
+      subject,
+
+      difficulty,
+
+      options,
+
+      answer: finalAnswer,
+
+      explanation,
+
+      createdAt: Date.now()
+
+    });
+
+  }
+
+  saveData();
+
+  closeModal();
+
+  alert("Question saved successfully.");
+
+  navigate("bank");
+
+}
+
+
+/* =========================================================
+   BULK IMPORT
+========================================================= */
+
+function renderImport() {
+
+  document.getElementById("app").innerHTML = `
+
+    <h1 class="page-title">Bulk Import</h1>
+
+    <p class="page-subtitle">
+      Paste hundreds of MCQs at once. The system automatically detects
+      options and no-option questions.
+    </p>
+
+
+    <div class="card card-pad">
+
+      <div class="import-help">
+
+        <strong>Supported format:</strong>
+
+        <pre>1. What is the capital of Pakistan?
+A) Karachi
+B) Lahore
+C) Islamabad
+D) Peshawar
+Answer: C
+
+2. Pakistan became independent in which year?
+Answer: 1947
+
+3. The All-India Muslim League was formed in which city?
+A) Lahore
+B) Dhaka
+C) Karachi
+D) Delhi
+Answer: B</pre>
+
+        <p style="color:var(--muted);font-size:12px;margin-bottom:0">
+
+          You can also use "Ans:", "Correct:", or "Correct Answer:".
+          Questions can have A-D options or no options.
+
+        </p>
+
+      </div>
+
+
+      <div class="grid grid-2">
+
+        <div class="form-group">
+
+          <label>Subject for imported questions</label>
+
+          <input
+            id="importSubject"
+            value="Pakistan Studies"
+            placeholder="e.g. English">
+
+        </div>
+
+        <div class="form-group">
+
+          <label>Difficulty</label>
+
+          <select id="importDifficulty">
+
+            <option>Easy</option>
+            <option selected>Medium</option>
+            <option>Hard</option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>Paste MCQs here</label>
+
+        <textarea
+          id="bulkText"
+          style="min-height:380px"
+          placeholder="Paste your MCQs here..."></textarea>
+
+      </div>
+
+
+      <div class="actions">
+
+        <button
+          class="btn btn-primary"
+          onclick="previewImport()">
+
+          🔍 Preview Import
+
+        </button>
+
+        <button
+          class="btn btn-success"
+          onclick="importQuestions()">
+
+          📥 Import Questions
+
+        </button>
+
+        <button
+          class="btn btn-secondary"
+          onclick="document.getElementById('bulkText').value=''">
+
+          Clear
+
+        </button>
+
+      </div>
+
+
+      <div id="importResult"
+           class="import-result">
+      </div>
+
+
+      <div id="importPreview"
+           style="margin-top:20px">
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+/* =========================================================
+   BULK PARSER
+========================================================= */
+
+let IMPORT_PREVIEW = [];
+
+
+function parseBulkText(text) {
+
+  const lines =
+    text
+      .replace(/\r/g, "")
+      .split("\n")
+      .map(x => x.trim());
+
+  const blocks = [];
+
+  let current = [];
+
+  function pushCurrent() {
+
+    if (current.length) {
+
+      blocks.push(current);
+
+      current = [];
+
+    }
+
+  }
+
+  for (const line of lines) {
+
+    if (!line) {
+
+      pushCurrent();
+
+      continue;
+
+    }
+
+    /*
+      New question starts when line begins with:
+
+      1.
+      1)
+      10.
+      Question:
+    */
+
+    const isQuestionStart =
+      /^\d+\s*[\.\)]\s+/.test(line) ||
+      /^question\s*:/i.test(line);
+
+    if (isQuestionStart && current.length) {
+
+      pushCurrent();
+
+    }
+
+    current.push(line);
+
+  }
+
+  pushCurrent();
+
+
+  const questions = [];
+
+  for (const block of blocks) {
+
+    let question = "";
+
+    const options = [];
+
+    let answer = "";
+
+    let explanation = "";
+
+    for (let raw of block) {
+
+      let line = raw.trim();
+
+      /* Remove question number */
+
+      if (
+        /^\d+\s*[\.\)]\s+/.test(line)
+      ) {
+
+        line =
+          line.replace(
+            /^\d+\s*[\.\)]\s+/,
+            ""
+          );
+
+        if (!question) {
+
+          question = line;
+          continue;
+
+        }
+
+      }
+
+
+      if (
+        /^question\s*:/i.test(line)
+      ) {
+
+        question =
+          line.replace(
+            /^question\s*:/i,
+            ""
+          ).trim();
+
+        continue;
+
+      }
+
+
+      /* Options */
+
+      const optionMatch =
+        line.match(
+          /^([A-D])\s*[\)\.\:\-]\s*(.+)$/i
+        );
+
+      if (optionMatch) {
+
+        options.push(
+          optionMatch[2].trim()
+        );
+
+        continue;
+
+      }
+
+
+      /* Answer */
+
+      const answerMatch =
+        line.match(
+          /^(answer|ans|correct|correct\s+answer)\s*:\s*(.+)$/i
+        );
+
+      if (answerMatch) {
+
+        answer =
+          answerMatch[2].trim();
+
+        continue;
+
+      }
+
+
+      /* Explanation */
+
+      const explanationMatch =
+        line.match(
+          /^explanation\s*:\s*(.+)$/i
+        );
+
+      if (explanationMatch) {
+
+        explanation =
+          explanationMatch[1].trim();
+
+        continue;
+
+      }
+
+
+      /*
+        If no question exists yet,
+        use line as question.
+      */
+
+      if (!question) {
+
+        question = line;
+
+      }
+
+    }
+
+
+    if (question && answer) {
+
+      /*
+        Convert A/B/C/D answer to actual option text.
+      */
+
+      if (
+        /^[A-D]$/i.test(answer) &&
+        options.length
+      ) {
+
+        const index =
+          answer.toUpperCase().charCodeAt(0) - 65;
+
+        if (options[index]) {
+
+          answer = options[index];
+
+        }
+
+      }
+
+
+      questions.push({
+
+        id: uid(),
+
+        question,
+
+        options,
+
+        answer,
+
+        subject:
+          document.getElementById("importSubject")
+            ?.value.trim() || "General",
+
+        difficulty:
+          document.getElementById("importDifficulty")
+            ?.value || "Medium",
+
+        explanation,
+
+        createdAt: Date.now()
+
+      });
+
+    }
+
+  }
+
+  return questions;
+
+}
+
+
+function previewImport() {
+
+  const text =
+    document.getElementById("bulkText").value;
+
+  IMPORT_PREVIEW =
+    parseBulkText(text);
+
+  const box =
+    document.getElementById("importPreview");
+
+  const result =
+    document.getElementById("importResult");
+
+
+  if (!IMPORT_PREVIEW.length) {
+
+    result.style.display = "block";
+
+    result.style.background =
+      "var(--danger-bg)";
+
+    result.style.color =
+      "var(--danger)";
+
+    result.innerHTML =
+      "❌ No valid questions found. Check the format.";
+
+    box.innerHTML = "";
+
+    return;
+
+  }
+
+
+  result.style.display = "block";
+
+  result.style.background =
+    "var(--success-bg)";
+
+  result.style.color =
+    "var(--success)";
+
+  result.innerHTML =
+    `✓ ${IMPORT_PREVIEW.length} questions detected.`;
+
+  box.innerHTML = `
+
+    <div class="card card-pad">
+
+      <h3>
+        Preview (${IMPORT_PREVIEW.length})
+      </h3>
+
+      <div class="question-list">
+
+        ${IMPORT_PREVIEW.slice(0,20).map((q,i) => `
+
+          <div class="question-row">
+
+            <div class="question-text">
+              ${i+1}. ${escapeHTML(q.question)}
+            </div>
+
+            <div class="question-meta">
+
+              <span class="badge badge-blue">
+                ${
+                  q.options.length
+                  ? q.options.length + " Options"
+                  : "No Options"
+                }
+              </span>
+
+              <span class="badge badge-green">
+                Answer: ${escapeHTML(q.answer)}
+              </span>
+
+            </div>
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+      ${
+        IMPORT_PREVIEW.length > 20
+        ? `<p style="color:var(--muted)">
+             Showing first 20 questions.
+           </p>`
+        : ""
+      }
+
+    </div>
+  `;
+
+}
+
+
+function importQuestions() {
+
+  const text =
+    document.getElementById("bulkText").value;
+
+  IMPORT_PREVIEW =
+    parseBulkText(text);
+
+  if (!IMPORT_PREVIEW.length) {
+
+    alert(
+      "No valid questions found.\n\n" +
+      "Make sure every question has an Answer."
+    );
+
+    return;
+
+  }
+
+
+  DATA.questions.push(
+    ...IMPORT_PREVIEW
+  );
+
+  saveData();
+
+
+  alert(
+    `Successfully imported ${IMPORT_PREVIEW.length} questions!`
+  );
+
+
+  document.getElementById("bulkText").value = "";
+
+  IMPORT_PREVIEW = [];
+
+  renderImport();
+
+}
+
+
+/* =========================================================
+   MANAGE DATA
+========================================================= */
+
+function renderManage() {
+
+  document.getElementById("app").innerHTML = `
+
+    <h1 class="page-title">Manage Data</h1>
+
+    <p class="page-subtitle">
+      Backup, restore or clear your question bank.
+    </p>
+
+
+    <div class="grid grid-2">
+
+      <div class="card card-pad">
+
+        <h3>📤 Export Backup</h3>
+
+        <p style="color:var(--muted)">
+          Download all your questions and quiz history
+          as a JSON backup file.
+        </p>
+
+        <button
+          class="btn btn-primary"
+          onclick="exportData()">
+
+          Export Backup
+
+        </button>
+
+      </div>
+
+
+      <div class="card card-pad">
+
+        <h3>📥 Restore Backup</h3>
+
+        <p style="color:var(--muted)">
+          Restore questions from a previous backup.
+        </p>
+
+        <input
+          type="file"
+          id="restoreFile"
+          accept=".json">
+
+        <br><br>
+
+        <button
+          class="btn btn-secondary"
+          onclick="restoreData()">
+
+          Restore
+
+        </button>
+
+      </div>
+
+
+      <div class="card card-pad">
+
+        <h3>📊 Your Statistics</h3>
+
+        <p>
+          Total Questions:
+          <strong>${DATA.questions.length}</strong>
+        </p>
+
+        <p>
+          Completed Quizzes:
+          <strong>${DATA.quizHistory.length}</strong>
+        </p>
+
+      </div>
+
+
+      <div class="card card-pad">
+
+        <h3>⚠️ Danger Zone</h3>
+
+        <p style="color:var(--muted)">
+          Delete your entire local question bank.
+        </p>
+
+        <button
+          class="btn btn-danger"
+          onclick="clearAllData()">
+
+          Delete Everything
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function exportData() {
+
+  const data =
+    JSON.stringify(DATA, null, 2);
+
+  const blob =
+    new Blob(
+      [data],
+      { type: "application/json" }
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    `mcq-master-backup-${todayKey()}.json`;
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+function restoreData() {
+
+  const input =
+    document.getElementById("restoreFile");
+
+  if (!input.files.length) {
+
+    alert("Please select a JSON backup file.");
+    return;
+
+  }
+
+  const file =
+    input.files[0];
+
+  const reader =
+    new FileReader();
+
+  reader.onload = function(e) {
+
+    try {
+
+      const imported =
+        JSON.parse(e.target.result);
+
+      if (
+        !Array.isArray(imported.questions)
+      ) {
+
+        throw new Error("Invalid backup");
+
+      }
+
+      if (
+        !confirm(
+          "Restore this backup?\n\n" +
+          "Your current local data will be replaced."
+        )
+      ) return;
+
+      DATA = {
+
+        theme:
+          imported.theme || "light",
+
+        questions:
+          imported.questions || [],
+
+        quizHistory:
+          imported.quizHistory || [],
+
+        todayQuiz:
+          imported.todayQuiz || null
+
+      };
+
+      saveData();
+
+      alert("Backup restored successfully.");
+
+      navigate("dashboard");
+
+    } catch (err) {
+
+      alert(
+        "Invalid backup file."
+      );
+
+    }
+
+  };
+
+  reader.readAsText(file);
+
+}
+
+
+function clearAllData() {
+
+  const confirm1 =
+    confirm(
+      "This will delete ALL questions and quiz history."
+    );
+
+  if (!confirm1) return;
+
+  const confirm2 =
+    prompt(
+      'Type DELETE to confirm.'
+    );
+
+  if (confirm2 !== "DELETE") {
+
+    alert("Cancelled.");
+    return;
+
+  }
+
+  localStorage.removeItem(STORAGE_KEY);
+
+  DATA = seedData();
+
+  saveData();
+
+  alert(
+    "Data cleared. Sample questions have been restored."
+  );
+
+  navigate("dashboard");
+
+}
+
+
+/* =========================================================
+   THEME
+========================================================= */
+
+function applyTheme() {
+
+  document.documentElement
+    .setAttribute(
+      "data-theme",
+      DATA.theme === "dark"
+      ? "dark"
+      : "light"
+    );
+
+  document.getElementById("themeBtn")
+    .textContent =
+      DATA.theme === "dark"
+      ? "☀️"
+      : "🌙";
+
+}
+
+
+document.getElementById("themeBtn")
+  .onclick = () => {
+
+    DATA.theme =
+      DATA.theme === "dark"
+      ? "light"
+      : "dark";
+
+    applyTheme();
+
+    saveData();
+
+  };
+
+
+/* =========================================================
+   NAV BINDINGS
+========================================================= */
+
+document.querySelectorAll(
+  ".nav-item, .mobile-nav button"
+).forEach(el => {
+
+  el.addEventListener(
+    "click",
+    () => navigate(el.dataset.page)
+  );
+
+});
+
+
+/* =========================================================
+   CLOSE MODAL OUTSIDE
+========================================================= */
+
+document.getElementById("questionModal")
+  .addEventListener("click", function(e) {
+
+    if (e.target === this) {
+
+      closeModal();
+
+    }
+
+  });
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+(function init() {
+
+  const loaded =
+    loadData();
+
+  if (!loaded) {
+
+    DATA =
+      seedData();
+
+    saveData();
+
+  }
+
+  applyTheme();
+
+  navigate("dashboard");
+
+})();
+
+</script>
+
+</body>
+</html>
