@@ -1,1 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCQ Practice</title>
 
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        color: #222;
+        min-height: 100vh;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 750px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    header h1 {
+        font-size: 28px;
+        margin-bottom: 6px;
+    }
+
+    header p {
+        color: #666;
+    }
+
+    .card {
+        background: white;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 18px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 300px;
+        resize: vertical;
+        padding: 14px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 15px;
+        line-height: 1.6;
+        outline: none;
+    }
+
+    textarea:focus {
+        border-color: #333;
+    }
+
+    button {
+        border: none;
+        border-radius: 9px;
+        padding: 12px 18px;
+        font-size: 15px;
+        cursor: pointer;
+        margin-top: 12px;
+    }
+
+    .primary {
+        background: #222;
+        color: white;
+        width: 100%;
+    }
+
+    .secondary {
+        background: #e9ecef;
+        color: #222;
+    }
+
+    button:hover {
+        opacity: 0.9;
+    }
+
+    .error {
+        background: #ffe5e5;
+        color: #b00020;
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 12px;
+        display: none;
+    }
+
+    .quiz {
+        display: none;
+    }
+
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 18px;
+        gap: 10px;
+    }
+
+    .progress {
+        color: #666;
+        font-size: 14px;
+    }
+
+    .score {
+        font-weight: bold;
+    }
+
+    .question {
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .option {
+        width: 100%;
+        display: block;
+        text-align: left;
+        background: #f7f7f7;
+        border: 2px solid #ddd;
+        color: #222;
+        margin: 10px 0;
+        padding: 14px;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: 0.2s;
+    }
+
+    .option:hover:not(.disabled) {
+        border-color: #777;
+        background: #eeeeee;
+    }
+
+    .option.correct {
+        background: #d9f7df;
+        border-color: #20a040;
+        color: #146c2e;
+    }
+
+    .option.wrong {
+        background: #ffdede;
+        border-color: #e02020;
+        color: #a00000;
+    }
+
+    .option.disabled {
+        cursor: default;
+    }
+
+    .next {
+        width: 100%;
+        background: #222;
+        color: white;
+        display: none;
+    }
+
+    .result {
+        display: none;
+        text-align: center;
+    }
+
+    .result h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .final-score {
+        font-size: 22px;
+        font-weight: bold;
+        margin: 15px 0;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .example {
+        background: #f7f7f7;
+        padding: 12px;
+        border-radius: 8px;
+        margin-top: 12px;
+        font-size: 13px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+    }
+
+    @media (max-width: 500px) {
+        .container {
+            padding: 12px;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        .question {
+            font-size: 18px;
+        }
+
+        .option {
+            font-size: 15px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>MCQ Practice</h1>
+        <p>Paste your MCQs and start practicing</p>
+    </header>
+
+    <!-- IMPORT SCREEN -->
+    <div id="importScreen" class="card">
+
+        <h2>Bulk Import MCQs</h2>
+
+        <p style="margin-top:8px;color:#666;">
+            Paste your MCQs below using the format shown.
+        </p>
+
+        <textarea id="mcqInput" placeholder="Q. What is the capital of Pakistan?
+A. Karachi
+B. Lahore
+C. Islamabad
+D. Quetta
+Answer: C
+
+Q. Who was the first Governor-General of Pakistan?
+A. Liaquat Ali Khan
+B. Muhammad Ali Jinnah
+C. Allama Iqbal
+D. Ayub Khan
+Answer: B"></textarea>
+
+        <button class="primary" onclick="startQuiz()">
+            Start Quiz
+        </button>
+
+        <div id="error" class="error"></div>
+
+        <div class="example">
+<strong>Format:</strong>
+
+Q. Your question here?
+A. Option A
+B. Option B
+C. Option C
+D. Option D
+Answer: C
+
+Q. Second question?
+A. Option A
+B. Option B
+C. Option C
+D. Option D
+Answer: A
+        </div>
+
+    </div>
+
+
+    <!-- QUIZ SCREEN -->
+    <div id="quizScreen" class="card quiz">
+
+        <div class="topbar">
+            <div class="progress" id="progress">
+                Question 1 of 10
+            </div>
+
+            <div class="score" id="score">
+                Score: 0
+            </div>
+        </div>
+
+        <div id="question" class="question"></div>
+
+        <div id="options"></div>
+
+        <button id="nextBtn" class="next" onclick="nextQuestion()">
+            Next Question
+        </button>
+
+    </div>
+
+
+    <!-- RESULT SCREEN -->
+    <div id="resultScreen" class="card result">
+
+        <h2>Quiz Complete!</h2>
+
+        <div id="finalScore" class="final-score">
+            Score: 0 / 0
+        </div>
+
+        <p id="percentage"></p>
+
+        <button class="primary" onclick="restartQuiz()">
+            Practice Again
+        </button>
+
+        <button class="secondary" onclick="newQuiz()">
+            Import New MCQs
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let questions = [];
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+
+/* =========================
+   START QUIZ
+========================= */
+
+function startQuiz() {
+
+    const input = document.getElementById("mcqInput").value.trim();
+    const errorBox = document.getElementById("error");
+
+    errorBox.style.display = "none";
+    errorBox.textContent = "";
+
+    if (!input) {
+        showError("Please paste your MCQs first.");
+        return;
+    }
+
+    const parsed = parseMCQs(input);
+
+    if (parsed.length === 0) {
+        showError(
+            "No valid MCQs found. Please check the format."
+        );
+        return;
+    }
+
+    questions = parsed;
+    currentQuestion = 0;
+    score = 0;
+
+    document.getElementById("importScreen").style.display = "none";
+    document.getElementById("resultScreen").style.display = "none";
+    document.getElementById("quizScreen").style.display = "block";
+
+    showQuestion();
+}
+
+
+/* =========================
+   PARSE MCQs
+========================= */
+
+function parseMCQs(text) {
+
+    const blocks = text
+        .split(/\n\s*\n/)
+        .map(block => block.trim())
+        .filter(block => block.length > 0);
+
+    const result = [];
+
+    for (let block of blocks) {
+
+        const lines = block
+            .split("\n")
+            .map(line => line.trim())
+            .filter(line => line.length > 0);
+
+        let question = "";
+        let options = [];
+        let answer = "";
+
+        for (let line of lines) {
+
+            // Question
+            if (/^Q\s*[\.\:\-]/i.test(line)) {
+                question = line
+                    .replace(/^Q\s*[\.\:\-]\s*/i, "")
+                    .trim();
+            }
+
+            // Options
+            else if (/^[A-D]\s*[\.\:\)\-]/i.test(line)) {
+
+                const match = line.match(
+                    /^([A-D])\s*[\.\:\)\-]\s*(.*)$/i
+                );
+
+                if (match) {
+                    options.push({
+                        letter: match[1].toUpperCase(),
+                        text: match[2].trim()
+                    });
+                }
+            }
+
+            // Answer
+            else if (/^Answer\s*[\:\-]/i.test(line)) {
+
+                answer = line
+                    .replace(/^Answer\s*[\:\-]\s*/i, "")
+                    .trim()
+                    .toUpperCase();
+
+                // Allow "Answer: A. Karachi"
+                const answerMatch = answer.match(/^([A-D])/);
+
+                if (answerMatch) {
+                    answer = answerMatch[1];
+                }
+            }
+        }
+
+        // Validate
+        if (
+            question &&
+            options.length === 4 &&
+            ["A", "B", "C", "D"].includes(answer)
+        ) {
+
+            const answerIndex =
+                ["A", "B", "C", "D"].indexOf(answer);
+
+            result.push({
+                question: question,
+                options: options.map(option => option.text),
+                answer: answerIndex
+            });
+        }
+    }
+
+    return result;
+}
+
+
+/* =========================
+   SHOW QUESTION
+========================= */
+
+function showQuestion() {
+
+    answered = false;
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("progress").textContent =
+        `Question ${currentQuestion + 1} of ${questions.length}`;
+
+    document.getElementById("score").textContent =
+        `Score: ${score}`;
+
+    document.getElementById("question").textContent =
+        q.question;
+
+    const optionsContainer =
+        document.getElementById("options");
+
+    optionsContainer.innerHTML = "";
+
+    q.options.forEach((optionText, index) => {
+
+        const button = document.createElement("button");
+
+        button.className = "option";
+
+        button.innerHTML =
+            `<strong>${["A", "B", "C", "D"][index]}.</strong> ${escapeHTML(optionText)}`;
+
+        button.onclick = () => selectAnswer(index);
+
+        optionsContainer.appendChild(button);
+    });
+
+    document.getElementById("nextBtn").style.display = "none";
+}
+
+
+/* =========================
+   SELECT ANSWER
+========================= */
+
+function selectAnswer(selectedIndex) {
+
+    if (answered) return;
+
+    answered = true;
+
+    const q = questions[currentQuestion];
+
+    const optionButtons =
+        document.querySelectorAll(".option");
+
+    // Correct answer always becomes green
+    optionButtons[q.answer].classList.add("correct");
+
+    if (selectedIndex === q.answer) {
+
+        score++;
+
+    } else {
+
+        // Selected wrong answer becomes red
+        optionButtons[selectedIndex].classList.add("wrong");
+    }
+
+    // Lock all options
+    optionButtons.forEach(button => {
+        button.classList.add("disabled");
+    });
+
+    document.getElementById("score").textContent =
+        `Score: ${score}`;
+
+    const nextButton =
+        document.getElementById("nextBtn");
+
+    nextButton.style.display = "block";
+
+    if (currentQuestion === questions.length - 1) {
+        nextButton.textContent = "Show Result";
+    } else {
+        nextButton.textContent = "Next Question";
+    }
+}
+
+
+/* =========================
+   NEXT QUESTION
+========================= */
+
+function nextQuestion() {
+
+    if (currentQuestion < questions.length - 1) {
+
+        currentQuestion++;
+
+        showQuestion();
+
+    } else {
+
+        showResult();
+    }
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+function showResult() {
+
+    document.getElementById("quizScreen").style.display =
+        "none";
+
+    document.getElementById("resultScreen").style.display =
+        "block";
+
+    document.getElementById("finalScore").textContent =
+        `Score: ${score} / ${questions.length}`;
+
+    const percentage =
+        Math.round((score / questions.length) * 100);
+
+    document.getElementById("percentage").textContent =
+        `Percentage: ${percentage}%`;
+}
+
+
+/* =========================
+   RESTART SAME QUIZ
+========================= */
+
+function restartQuiz() {
+
+    currentQuestion = 0;
+    score = 0;
+
+    document.getElementById("resultScreen").style.display =
+        "none";
+
+    document.getElementById("quizScreen").style.display =
+        "block";
+
+    showQuestion();
+}
+
+
+/* =========================
+   NEW QUIZ
+========================= */
+
+function newQuiz() {
+
+    questions = [];
+    currentQuestion = 0;
+    score = 0;
+
+    document.getElementById("resultScreen").style.display =
+        "none";
+
+    document.getElementById("quizScreen").style.display =
+        "none";
+
+    document.getElementById("importScreen").style.display =
+        "block";
+
+    document.getElementById("mcqInput").value = "";
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+function showError(message) {
+
+    const errorBox =
+        document.getElementById("error");
+
+    errorBox.textContent = message;
+    errorBox.style.display = "block";
+}
+
+
+/* =========================
+   SECURITY
+========================= */
+
+function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+</script>
+
+</body>
+</html>
